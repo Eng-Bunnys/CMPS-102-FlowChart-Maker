@@ -1,77 +1,72 @@
+
 #include "HelperFn.h"
 
-/**
- * Written by Youssef Mohamed Hamdy
- * Check if the given input string is a valid number (including negative numbers).
- * Numbers can be: 12.5, -12.5, -23, -23. , -23.0 ...etc.
- *
- * @param input The input string to be checked.
- * @return True if the input is a valid number, false otherwise.
- */
-bool IsValue(string input) {
-	if (input.length() == 0) return false; // If the input length is zero, it is not a valid number
+/*
+* @example Input = -12.5 Output = 1 , Input = Salma Output = 0
+*
+* @param [string] The input string that will be checked.
+* @return [bool] True if the input is a valid double or not
+*/
+bool IsValue(string input)
+{
+	if (!input.length()) return false; //If the string has no length
 
-	bool HasDot = false; // Var to track if a dot is found
-	bool HasDigit = false; // Var to track if a digit is found
-	bool IsNegative = false; // Var to track if the number is negative
+	bool HasDigit = false, IsNegative = false, HasDot = false; //Creating 3 Bool variables that store false by default
 
 	for (int i = 0; i < input.length(); i++) {
-		char c = input[i];
-		if (i == 0 && c == '-') {
-			IsNegative = true; // If the first character is a minus sign, set the negative var to true
+		char CurrentCharacter = input[i]; //The current character iteration
+
+		if (i == 0 && CurrentCharacter != '-') {
+			IsNegative = true; //If the first character is a negative sign (minus) this indicates that the number we're dealing with is a negative number
 			continue;
 		}
 
-		if (c == '.') {
-			if (HasDot || !HasDigit) return false; // If a dot is found and either dot or digit has already been found, it is not a valid number
-			HasDot = true; // Set the HasDot var to true
+		if (CurrentCharacter == '.') {
+			if (HasDot || !HasDigit) return false; //If a dot is found and either dot or digit has already been found then it is not a valid double number
+			HasDot = true;
 		}
-		else if (!(c >= '0' && c <= '9')) return false; // If a non-digit character is found, it is not a valid number
-		else HasDigit = true; // Set the HasDigit var to true
+		else if (!(CurrentCharacter >= '0' && CurrentCharacter <= '9')) return false; //If a non-digit character is found
+		else HasDigit = true;
 	}
-
-	// If at least one digit is found, or if the number is negative and at least one digit is found, it is a valid number
-	return HasDigit || (IsNegative && HasDigit);
+	return HasDigit || (IsNegative && HasDigit); //If at least one digit is found, or if the number is negative and at least one digit is found.
 }
 
-
-/**
-* Written by Youssef Mohamed Hamdy
-* Check if the given input string is a valid identifier.
-* An identifier should start with a letter (a-z or A-Z) or underscore (_),
-* and can contain letters, numbers (0-9), or underscore (_).
+/*
+* Check if the given input string is a valid identifier, [a-z or A-Z] or (_)
+* can contain numbers (0-9)
 *
-* @param input The input string to be checked.
+* @param input The input string is to be checked.
 * @return True if the input is a valid identifier, false otherwise.
 */
 bool IsVariable(string input)
 {
-	// If the input length is zero, it is not a valid identifier
-	if (input.empty()) return false;
+	if (!input.length()) return false;
 
 	char FirstCharacter = input[0];
-	if (!((FirstCharacter >= 'a' && FirstCharacter <= 'z') || (FirstCharacter >= 'A' && FirstCharacter <= 'Z') || FirstCharacter == '_'))
-		return false; // If the first character is not a letter or underscore, it is not a valid identifier
+	//Checking if the first character is not a valid letter from the English alphabet OR if it's an underscore
+	if (!((FirstCharacter >= 'a' && FirstCharacter <= 'z') || (FirstCharacter >= 'A' && FirstCharacter <= 'Z') || FirstCharacter == '_')) return false;
 
-	for (unsigned int i = 1; i < input.length(); ++i)
-	{
+	//Note: unsigned means it cannot store negative numbers but doubles the value of the positive meaning other
+	// than storing 32 bits it can store double that [2^32 - 1]
+
+	for (unsigned int i = 1; i < input.length(); i++) {
 		char CurrentCharacter = input[i];
+		//If any of the characters is not a letter, number or underscore
 		if (!((CurrentCharacter >= 'a' && CurrentCharacter <= 'z')
 			|| (CurrentCharacter >= 'A' && CurrentCharacter <= 'Z')
 			|| (CurrentCharacter >= '0' && CurrentCharacter <= '9')
-			|| CurrentCharacter == '_'))
-			return false; // If any of the characters is not a letter, number, or underscore, it is not a valid identifier
+			|| CurrentCharacter == '_')) return false;
 	}
-
-	return true; // If all characters pass the checks, it is a valid identifier
+	return true; //If all checks were passed
 }
 
+/*
+* @param input The input string
+* @returns Enum value
+*/
 OpType ValueOrVariable(string input)
 {
-	// checks if the input string is a double value or a variable name
-	// chand returns enum "OpType" (the enum is declared in the .h)
-
-	//TODO: complete this function
-
-	return INVALID_OP;
+	if (IsValue(input)) return VALUE_OP;
+	if (IsVariable(input)) return VARIABLE_OP;
+	else return INVALID_OP;
 }
