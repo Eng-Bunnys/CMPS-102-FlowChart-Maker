@@ -7,35 +7,39 @@
 * @param [string] The input string that will be checked.
 * @return [bool] True if the input is a valid double or not
 */
-bool IsValue(string input)
-{
-	if (!input.length()) return false; //If the string has no length
+bool IsValue(string input) {
+	//Where I learnt about the .empty() function https://en.cppreference.com/w/cpp/iterator/empty
+	//I will use .length() later on though, I just prefer it
+	if (input.empty()) return false; //If the string has no length
 
-	bool HasDigit = false, IsNegative = false, HasDot = false; //Creating 3 Bool variables that store false by default
+	bool HasDigit = false, HasDot = false;
 
 	for (int i = 0; i < input.length(); i++) {
 		char CurrentCharacter = input[i]; //The current character iteration
 
-		if (i == 0 && CurrentCharacter != '-') {
-			IsNegative = true; //If the first character is a negative sign (minus) this indicates that the number we're dealing with is a negative number
-			continue;
+		if (CurrentCharacter == '-') {
+			if (i != 0) return false; // If a minus sign is encountered at any position other than the first, it is not a valid number
 		}
-
-		if (CurrentCharacter == '.') {
-			if (HasDot || !HasDigit) return false; //If a dot is found and either dot or digit has already been found then it is not a valid double number
+		else if (CurrentCharacter == '.') {
+			if (HasDot || !HasDigit) return false; //If a dot is found and either dot or digit has already been found or if no digit is found before the dot, then it is not a valid double number
 			HasDot = true;
 		}
-		else if (!(CurrentCharacter >= '0' && CurrentCharacter <= '9')) return false; //If a non-digit character is found
-		else HasDigit = true;
+		else if (!(CurrentCharacter >= '0' && CurrentCharacter <= '9')) {
+			return false; //If a non-digit character is found
+		}
+		else {
+			HasDigit = true;
+		}
 	}
-	return HasDigit || (IsNegative && HasDigit); //If at least one digit is found, or if the number is negative and at least one digit is found.
+
+	return HasDigit || (HasDot && HasDigit); // If at least one digit is found, or if a dot and at least one digit is found.
 }
 
 /*
 * Check if the given input string is a valid identifier, [a-z or A-Z] or (_)
 * can contain numbers (0-9)
 *
-* @param input The input string is to be checked.
+* @param input The input string to be checked.
 * @return True if the input is a valid identifier, false otherwise.
 */
 bool IsVariable(string input)
