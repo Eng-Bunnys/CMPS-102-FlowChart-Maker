@@ -54,7 +54,7 @@ bool IsVariable(string input)
 	// than storing 32 bits it can store double that [2^32 - 1]
 
 	for (unsigned int i = 1; i < input.length(); i++) {
-		char CurrentCharacter = input[i];
+		char CurrentCharacter = input[i]; //comment
 		//If any of the characters is not a letter, number or underscore
 		if (!((CurrentCharacter >= 'a' && CurrentCharacter <= 'z')
 			|| (CurrentCharacter >= 'A' && CurrentCharacter <= 'Z')
