@@ -1,38 +1,50 @@
+#include <iostream>
+#include "Helper.h"
+using namespace std; //7atetha just in case but it worked perfectly fine without it in the visual studio.
+bool IsValue(string input) {
+	if (input.length() == 0) {
+		return false;
+	}
+	for (int i = 0; i < input.length(); i++) {
+		bool hasadot = false;
+		char currentcharacter = input[i];
+		if (!(currentcharacter == '.' || (currentcharacter >= '0' && currentcharacter <= '9'|| currentcharacter=='-'))) {
+			return false;
+		}
 
-#include "HelperFn.h"
-
-bool IsValue (string input)
-{
-	// checks if the input string is a double value
-	// return true if it's double value, false otherwise
-
-	// Double values can be: 12.5, -12.5, -23, -23. , -23.0 …etc.
-
-	//TODO: complete this function
-
-	return false;
+		if (currentcharacter == '-') {
+			if (i != 0) {
+				return false;
+			}
+		}
+		if (currentcharacter == '.') {
+			if (i == 0) {
+				return false;
+			}
+			else hasadot = true;
+		} 
+	} return true;
+bool IsVariable(string input) {
+	if (input.length() == 0) {
+		return false;
+	}
+	char first = input[0];
+	if (!((first >= 'a' && first <= 'z') || (first >= 'A' && first <= 'Z') || first == '_')) {
+		return false;
+	}
+	for (int i = 0; i < input.length(); i++) {
+		char currentcharacter = input[i];
+		if (currentcharacter == ' ') {
+			return false;
+		}
+		if (!(currentcharacter == '_' || (currentcharacter >= '0' && currentcharacter <= '9') || (currentcharacter >= 'a' && currentcharacter <= 'z') || (currentcharacter >= 'A' && currentcharacter <= 'Z'))) {
+			return false;
+		}
+	} return true;
 }
-
-bool IsVariable (string input)
+OpType ValueOrVariable(string input)
 {
-	// checks if the input string is a variable name
-	// return true if it can be a variable name, false otherwise
-
-	// Variable names must start with an alphabetic letter (small or capital) or an underscore (_). 
-	// After the first initial letter, variable names can contain letters, numbers and underscores.  
-	// No spaces or special characters, however, are allowed.
-
-	//TODO: complete this function
-
-	return false;
-}
-
-OpType ValueOrVariable (string input)
-{
-	// checks if the input string is a double value or a variable name
-	// chand returns enum "OpType" (the enum is declared in the .h)
-
-	//TODO: complete this function
-
-	return INVALID_OP;
+	if (IsValue(input)) return VALUE_OP;
+	if (IsVariable(input)) return VARIABLE_OP;
+	else return INVALID_OP;
 }
