@@ -3,10 +3,7 @@
 #include "GUI\\Input.h"
 #include "GUI\\Output.h"
 #include <iostream>
-/*Testing the code might be confusing at first 
-From my understanding about the lib we're using, the way to test it is by stages
-meaning that you finished the first stage, to move on you must use your mouse and left click once
-*/
+
 int main()
 {
 	Point P;
@@ -44,7 +41,7 @@ int main()
 
 	pOut->PrintMessage("Enter a string");
 	string ValueOrVariableInputString = pIn->GetString(pOut);
-	
+
 	OpType OutputResult = ValueOrVariable(ValueOrVariableInputString);
 
 	if (OutputResult == VALUE_OP) pOut->PrintMessage("The entered string is a value, click anywhere to continue.");
@@ -102,63 +99,144 @@ int main()
 	pIn->GetPointClicked(P);	//Wait for any click
 	pOut->ClearDrawArea();
 
-	///2.2- Variable assignment & single operator assignment
+	/// 2.2- Variable assignment & single operator assignment
 	pOut->PrintMessage("Drawing other Assignment statements in ALL STATES, Click to continue");
 
-	//Note: for other type of assignment, you can use the same draw assignment function but passing a different text
+	// Drawing Variable assignment statement (normal)
+	P.x = 100;	P.y = 400;
+	pOut->DrawAssign(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "Var = Var + 5");
 
-	////////////
-	//TODO: Add code to draw other types of assignment statements (Variable and Operator) here in ALL STATES
-	////////////
+	// Drawing Variable assignment statement (highlighted)
+	P.x = 300;	P.y = 400;
+	pOut->DrawAssign(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "Var = Var + 5", true);
+
+	// Drawing Single Operator assignment statement (normal)
+	P.x = 100;	P.y = 500;
+	pOut->DrawAssign(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "A = B * C + D / 3");
+
+	// Drawing Single Operator assignment statement (highlighted)
+	P.x = 300;	P.y = 500;
+	pOut->DrawAssign(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "A = B * C + D / 3", true);
 
 	pIn->GetPointClicked(P);	//Wait for any click
 	pOut->ClearDrawArea();
 
 	/// 2.3- Conditional statement test
-	//Drawing Conditional statements in all posible states
+	// Drawing Conditional statements in all possible states
 	pOut->PrintMessage("Drawing Conditional Statement in ALL STATES, Click to continue");
 
-	////////////
-	//TODO: Add code to draw different (Conditional) statements here in ALL STATES
-	////////////
+	// Drawing Conditional statement (normal)
+	P.x = 100;	P.y = 200;
+	pOut->DrawConditionalStat(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "If x > y");
+
+	// Drawing Conditional statement (highlighted)
+	P.x = 300;	P.y = 200;
+	pOut->DrawConditionalStat(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "If x > y", true);
+
+	// Drawing resized Conditional statement
+	P.x = 100;	P.y = 300;
+	pOut->DrawConditionalStat(P, 120, UI.ASSGN_HI, "If x < y");
 
 	pIn->GetPointClicked(P);	//Wait for any click
 	pOut->ClearDrawArea();
 
 	/// 2.4- Read statement test
-	//Drawing Read statements in all posible states
+	// Drawing Read statements in all possible states
 	pOut->PrintMessage("Drawing Read Statement in ALL STATES, Click to continue");
 
-	////////////
-	//TODO: Add code to draw different (Read) statements here in ALL STATES
-	////////////
+	// Drawing Read statement (normal)
+	P.x = 100;	P.y = 200;
+	pOut->DrawRead(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "Read x");
+
+	// Drawing Read statement (highlighted)
+	P.x = 300;	P.y = 200;
+	pOut->DrawRead(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "Read x", true);
+
+	// Drawing resized Read statement
+	P.x = 100;	P.y = 300;
+	pOut->DrawRead(P, 120, UI.ASSGN_HI, "Read y");
 
 	pIn->GetPointClicked(P);	//Wait for any click
 	pOut->ClearDrawArea();
 
 	/// 2.5- Write statement test
-	//Drawing Write statements in all posible states
+	// Drawing Write statements in all possible states
 	pOut->PrintMessage("Drawing Write Statement in ALL STATES, Click to continue");
 
-	////////////
-	//TODO: Add code to draw different (Write) statements here in ALL STATES
-	////////////
+	// Drawing Write statement (normal)
+	P.x = 100;	P.y = 200;
+	pOut->DrawWrite(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "Write x");
+
+	// Drawing Write statement (highlighted)
+	P.x = 300;	P.y = 200;
+	pOut->DrawWrite(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "Write x", true);
+
+	// Drawing resized Write statement
+	P.x = 100;	P.y = 300;
+	pOut->DrawWrite(P, 120, UI.ASSGN_HI, "Write y");
 
 	pIn->GetPointClicked(P);	//Wait for any click
 	pOut->ClearDrawArea();
-
 
 	/// 2.6- Start & End statements test
-	//Drawing Start & End statements in all posible states
+	// Drawing Start & End statements in all possible states
 	pOut->PrintMessage("Drawing Start & End Statements in ALL STATES, Click to continue");
 
-	////////////
-	//TODO: Add code to draw different (Start & End) statements here  in ALL STATES
-	////////////
+	// Drawing Start statement (normal)
+	P.x = 100;	P.y = 200;
+	pOut->DrawStart(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "Start");
+
+	// Drawing Start statement (highlighted)
+	P.x = 300;	P.y = 200;
+	pOut->DrawStart(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "Start", true);
+
+	// Drawing resized Start statement
+	P.x = 100;	P.y = 300;
+	pOut->DrawStart(P, 120, UI.ASSGN_HI, "Start");
+
+	// Drawing End statement (normal)
+	P.x = 500;	P.y = 200;
+	pOut->DrawEnd(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "End");
+
+	// Drawing End statement (highlighted)
+	P.x = 700;	P.y = 200;
+	pOut->DrawEnd(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "End", true);
+
+	// Drawing resized End statement
+	P.x = 500;	P.y = 300;
+	pOut->DrawEnd(P, 120, UI.ASSGN_HI, "End");
 
 	pIn->GetPointClicked(P);	//Wait for any click
 	pOut->ClearDrawArea();
 
+	/// 2.7- Connector test
+	// Drawing Connector in all possible states
+	pOut->PrintMessage("Drawing Connector in Normal and Highlighted STATES, Click to continue");
+
+	// Drawing Connector (normal)
+	P.x = 100;	P.y = 200;
+	pOut->DrawConnector(P, P);
+
+	// Drawing Connector (highlighted)
+	P.x = 300;	P.y = 200;
+	pOut->DrawConnector(P, P, true);
+
+	pIn->GetPointClicked(P);	//Wait for any click
+	pOut->ClearDrawArea();
+
+	/// 2.8- Draw String TEST
+	// Drawing a String in a specific location
+	pOut->PrintMessage("Drawing A String, Click to continue");
+
+	// Getting a String from the user
+	pOut->PrintMessage("Enter a string");
+	string userString = pIn->GetString(pOut);
+
+	// Drawing that string in location (400, 200)
+	pOut->DrawString(400, 200, userString);
+
+	pIn->GetPointClicked(P);	//Wait for any click
+	pOut->ClearDrawArea();
 
 	/// 2.7- Connector test
 	//Drawing Connector in all posible states
