@@ -7,6 +7,7 @@ class Output	//The application manager should have a pointer to this class
 {
 private:	
 	window* pWind;	//Pointer to the Graphics Window
+	int ConnectorWidth;
 public:
 	Output();	
 
@@ -15,7 +16,6 @@ public:
 
 	void CreateStatusBar(); //Creates status bar
 
-	//TODO: Complete the following 2 functions
 	void CreateDesignToolBar();	//Tool bar of the design mode
 	void CreateSimulationToolBar(); //Tool bar of the simulation mode
 
@@ -29,11 +29,12 @@ public:
 	// -- Statements Drawing Functions
 	void DrawAssign(Point Left, int width, int height, string Text, bool Selected=false);
 
-	//TODO: Add similar functions for drawing all other statements.
-	//		e.g. DrawCondtionalStat(......), DrawStart(......), DrawEnd(.......), ...etc
-	//		Decide the parameters that should be passed to each of them
-	
-	//TODO: Add DrawConnector function
+	void DrawConditionalStat(Point Left, int width, int height, string Text, bool Selected = false);
+	void DrawStart(Point Left, int width, int height, string Text, bool Selected = false);
+	void DrawEnd(Point Left, int width, int height, string Text, bool Selected = false);
+	void DrawRead(Point Left, int width, int height, string Text, bool Selected = false);
+	void DrawWrite(Point Left, int width, int height, string Text, bool Selected = false);
+	void DrawConnector(Point Start, Point End, bool Selected = false);
 
 	~Output();
 };
