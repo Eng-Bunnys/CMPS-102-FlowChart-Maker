@@ -23,6 +23,8 @@ Output::Output()
 	UI.ASSGN_WDTH = 150;
 	UI.ASSGN_HI = 50;
 
+	ConnectorWidth = 2;
+
 	//Create the output window
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
 	//Change the title
@@ -73,8 +75,12 @@ void Output::CreateDesignToolBar() //Draws the Design Menu
 	MenuItemImages[ITM_VALUE_ASSIGN] = "images\\Assign.jpg";
 	MenuItemImages[ITM_COND] = "images\\Condition.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Exit.jpg";
+	MenuItemImages[ITM_START] = "images\\Start.jpg";
+	MenuItemImages[ITM_END] = "images\\End.jpg";
+	MenuItemImages[ITM_READ] = "images\\Read.jpg";
+	MenuItemImages[ITM_WRITE] = "images\\Write.jpg";
+	MenuItemImages[ITM_CONNECTOR] = "images\\Connector.jpg";
 	//TODO: Prepare images for each menu item and add it to the list
-
 
 	//Draw menu item one image at a time
 	for(int i=0; i<DSN_ITM_CNT; i++)
@@ -82,16 +88,46 @@ void Output::CreateDesignToolBar() //Draws the Design Menu
 
 	//Draw a line under the toolbar
 	pWind->SetPen(RED, 2);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 
+	// Draw labels for each item (you can customize the positions and text):
+	DrawString(0, UI.ToolBarHeight, "Value Assign");
+	DrawString(UI.MenuItemWidth, UI.ToolBarHeight, "Condition");
+	DrawString(2 * UI.MenuItemWidth, UI.ToolBarHeight, "Exit");
+	DrawString(3 * UI.MenuItemWidth, UI.ToolBarHeight, "Start");
+	DrawString(4 * UI.MenuItemWidth, UI.ToolBarHeight, "End");
+	DrawString(5 * UI.MenuItemWidth, UI.ToolBarHeight, "Read");
+	DrawString(6 * UI.MenuItemWidth, UI.ToolBarHeight, "Write");
+	DrawString(7 * UI.MenuItemWidth, UI.ToolBarHeight, "Connector");
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //TODO: Complete this function
-void Output::CreateSimulationToolBar() //Draws the Simulation Menu
+void Output::CreateSimulationToolBar()
 {
-	UI.AppMode = SIMULATION;	//Simulation Mode
-	///TODO: add code to create the simulation tool bar
+	UI.AppMode = SIMULATION; // Simulation Mode
+
+	// Fill the toolbar
+
+	// You can draw the toolbar icons in any way you want.
+	// Below is one possible way
+
+	// First prepare List of images for each menu item
+	// To control the order of these images in the menu,
+	// reorder them in DEFS.h ==> enum SimMenuItem
+	string MenuItemImages[SIM_ITM_CNT];
+	MenuItemImages[ITM_VALIDATE] = "images\\Validate.jpg";
+	MenuItemImages[ITM_RUN] = "images\\Run.jpg";
+	// TODO: Add more images for additional simulation menu items
+
+	// Draw menu item one image at a time
+	for (int i = 0; i < SIM_ITM_CNT; i++)
+		pWind->DrawImage(MenuItemImages[i], i * UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+
+	// Draw a line under the toolbar
+	pWind->SetPen(RED, 2);
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 }
+
 //////////////////////////////////////////////////////////////////////////////////////////
 void Output::ClearStatusBar()
 {
@@ -152,13 +188,122 @@ void Output::DrawAssign(Point Left, int width, int height, string Text, bool Sel
 	pWind->DrawString(Left.x+width/4, Left.y + height/4, Text);
 }
 
-//TODO: Add similar functions for drawing all other statements.
-//		e.g. DrawCondtionalStat(......), DrawStart(......), DrawEnd(.......), ...etc
-//		Decide the parameters that should be passed to each of them
-	
-//TODO: Add DrawConnector function
+// Draw conditional statement and write the "Text" on it
+void Output::DrawConditionalStat(Point Left, int width, int height, string Text, bool Selected)
+{
+	if (Selected)
+		pWind->SetPen(UI.HighlightColor, 3);
+	else
+		pWind->SetPen(UI.DrawColor, 3);
 
-//////////////////////////////////////////////////////////////////////////////////////////
+	// Draw the diamond shape for a conditional statement
+	int midX = Left.x + width / 2;
+	int midY = Left.y + height / 2;
+
+	pWind->DrawLine(midX, Left.y, Left.x + width, midY);
+	pWind->DrawLine(Left.x + width, midY, midX, Left.y + height);
+	pWind->DrawLine(midX, Left.y + height, Left.x, midY);
+	pWind->DrawLine(Left.x, midY, midX, Left.y);
+
+	// Write statement text
+	pWind->SetPen(BLACK, 2);
+	pWind->DrawString(midX - width / 4, midY - height / 4, Text);
+}
+
+// Draw start statement and write the "Text" on it
+void Output::DrawStart(Point Left, int width, int height, string Text, bool Selected)
+{
+	if (Selected)
+		pWind->SetPen(UI.HighlightColor, 3);
+	else
+		pWind->SetPen(UI.DrawColor, 3);
+
+	// Draw a circle for the start statement
+	int midX = Left.x + width / 2;
+	int midY = Left.y + height / 2;
+
+	pWind->DrawCircle(midX, midY, width / 2);
+
+	// Write statement text
+	pWind->SetPen(BLACK, 2);
+	pWind->DrawString(midX - width / 4, midY - height / 4, Text);
+}
+
+// Draw end statement and write the "Text" on it
+void Output::DrawEnd(Point Left, int width, int height, string Text, bool Selected)
+{
+	if (Selected)
+		pWind->SetPen(UI.HighlightColor, 3);
+	else
+		pWind->SetPen(UI.DrawColor, 3);
+
+	// Draw an ellipse for the end statement
+	int midX = Left.x + width / 2;
+	int midY = Left.y + height / 2;
+
+	pWind->DrawEllipse(Left.x, Left.y, Left.x + width, Left.y + height);
+
+	// Write statement text
+	pWind->SetPen(BLACK, 2);
+	pWind->DrawString(midX - width / 4, midY - height / 4, Text);
+}
+
+// Draw read statement and write the "Text" on it
+void Output::DrawRead(Point Left, int width, int height, string Text, bool Selected)
+{
+	if (Selected)
+		pWind->SetPen(UI.HighlightColor, 3);
+	else
+		pWind->SetPen(UI.DrawColor, 3);
+
+	// Draw a parallelogram for the read statement
+	int midX = Left.x + width / 2;
+	int midY = Left.y + height / 2;
+
+	pWind->DrawLine(midX, Left.y, Left.x + width, Left.y);
+	pWind->DrawLine(Left.x + width, Left.y, Left.x + width - width / 4, Left.y + height);
+	pWind->DrawLine(Left.x + width - width / 4, Left.y + height, Left.x - width / 4, Left.y + height);
+	pWind->DrawLine(Left.x - width / 4, Left.y + height, midX, Left.y);
+
+	// Write statement text
+	pWind->SetPen(BLACK, 2);
+	pWind->DrawString(midX - width / 4, midY - height / 4, Text);
+}
+
+// Draw write statement and write the "Text" on it
+void Output::DrawWrite(Point Left, int width, int height, string Text, bool Selected)
+{
+	if (Selected)
+		pWind->SetPen(UI.HighlightColor, 3);
+	else
+		pWind->SetPen(UI.DrawColor, 3);
+
+	// Draw a parallelogram for the write statement
+	int midX = Left.x + width / 2;
+	int midY = Left.y + height / 2;
+
+	pWind->DrawLine(Left.x - width / 4, Left.y, midX, Left.y + height);
+	pWind->DrawLine(midX, Left.y + height, Left.x + width - width / 4, Left.y + height);
+	pWind->DrawLine(Left.x + width - width / 4, Left.y + height, Left.x, Left.y);
+	pWind->DrawLine(Left.x, Left.y, Left.x - width / 4, Left.y);
+
+	// Write statement text
+	pWind->SetPen(BLACK, 2);
+	pWind->DrawString(midX - width / 4, midY - height / 4, Text);
+}
+
+// Draw connector line between two points
+void Output::DrawConnector(Point Start, Point End, bool Selected)
+{
+	if (Selected)
+		pWind->SetPen(UI.HighlightColor, 3);
+	else
+		pWind->SetPen(UI.DrawColor, 3);
+
+	// Draw a line between Start and End
+	pWind->DrawLine(Start.x, Start.y, End.x, End.y);
+}
+
 Output::~Output()
 {
 	delete pWind;
