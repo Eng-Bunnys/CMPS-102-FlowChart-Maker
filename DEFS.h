@@ -22,7 +22,7 @@ enum ActionType // The actions supported
 	ADD_WRITE, //Addd write statemetn
 
 	ADD_CONNECTOR, //Add a connector between two statements
-	
+
 	SELECT,		//Select a statement, a connector
 	EDIT_STAT,	//Edit a statement
 
@@ -59,11 +59,17 @@ enum DesignMenuItem //The items of the design menu --> THE ORDER MATTERS
 
 
 	ITM_EXIT,		//Exit
-	
+
 	//TODO: Add more items names here
-	
+
+	ITM_START,         //Add start statement
+	ITM_END,           //Add end statement
+	ITM_READ,          //Add read statement
+	ITM_WRITE,         //Add write statement
+	ITM_CONNECTOR,     //Add connector statement
+
 	DSN_ITM_CNT		//no. of design menu items ==> This should be the last line in this enum
-	
+
 };
 
 // TODO: you should add more items if needed
@@ -72,11 +78,11 @@ enum SimMenuItem //The items of the simulation menu
 	//Note: Items are ordered here as they appear in menu
 	ITM_VALIDATE,	//Validate
 	ITM_RUN,	    //Run
-		
+
 	//TODO:Add more items names here
-	
+
 	SIM_ITM_CNT		//no. of simulation menu items ==> This should be the last line in this enum
-	
+
 };
 
 
