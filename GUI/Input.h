@@ -20,18 +20,14 @@ public:
 
 	string GetString(Output* pO) const ; //Returns a string entered by the user
 
-	//TODO: Add the function Input::GetVariable 
-	// to read a “variable name” from the user (from the keyboard). 
-	// It does not return before taking a valid variable name.
+	char GetChar(Output* pO) const; // Returns a character entered by the user
 
-	//TODO: Add the function Input::GetArithOperator 
-	// to read an arithmetic operator (+, -, * or /) from the user. 
-	// It does not return before taking a valid arithmetic operator.
+	string GetVariable(Output* pO) const; // Reads a variable name from the user
 
-	//TODO: Add the function Input::GetCompOperator
-	// similar to the previous function but for comparison operators (==, !=, <, <=, > or >=).
+	char GetArithOperator(Output* pO) const; // Reads an arithmetic operator from the user
 
-	//TODO: Complete the implementation of the following function
+	char GetCompOperator(Output* pO) const; // Reads a comparison operator from the user
+
 	ActionType GetUserAction() const; //Reads the user click and maps it to an action
 
 	~Input();
