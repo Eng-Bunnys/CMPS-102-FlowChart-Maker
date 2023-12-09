@@ -91,6 +91,9 @@ string Input::GetArithoperator(Output* pO) const
 		{
 			break;
 		}
+		else 
+			pO->PrintMessage("Invalid arithmetic operator,ReEnter: ");
+			
 	} while (1);
 	return z;
 }
@@ -105,6 +108,8 @@ string Input::GetArithoperator(Output* pO) const
 			{
 				break;
 			}
+			else
+				pO->PrintMessage("Invalid comparsion operator,ReEnter: ");
 			return y;
 		} while (1);
 
