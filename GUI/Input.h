@@ -24,9 +24,9 @@ public:
 
 	string GetVariable(Output* pO) const; // Reads a variable name from the user
 
-	char GetArithOperator(Output* pO) const; // Reads an arithmetic operator from the user
+	string GetArithOperator(Output* pO) const; // Reads an arithmetic operator from the user
 
-	char GetCompOperator(Output* pO) const; // Reads a comparison operator from the user
+	string GetCompOperator(Output* pO) const; // Reads a comparison operator from the user
 
 	ActionType GetUserAction() const; //Reads the user click and maps it to an action
 
