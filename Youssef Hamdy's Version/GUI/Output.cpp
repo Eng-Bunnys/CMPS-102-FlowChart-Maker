@@ -151,20 +151,27 @@ void Output::DrawString(const int iX, const int iY, const string Text)
 // Draw assignment statement and write the "Text" on it
 void Output::DrawAssign(Point Left, int width, int height, string Text, bool Selected)
 {
-	if (Selected)							 // if stat is selected, it should be highlighted
-		pWind->SetPen(UI.HighlightColor, 3); // use highlighting color
+	if (Selected)
+		pWind->SetPen(UI.HighlightColor, 3);
 	else
-		pWind->SetPen(UI.DrawColor, 3); // use normal color
+		pWind->SetPen(UI.DrawColor, 3);
+
+	// Calculate the size needed to accommodate the text
+	int textWidth, textHeight;
+	pWind->GetStringSize(textWidth, textHeight, Text);
+
+	// Adjust the width and height based on the text size
+	width = max(UI.ASSGN_WDTH, textWidth + 20); // Ensure a minimum width
+	height = max(UI.ASSGN_HI, textHeight + 10); // Ensure a minimum height
 
 	// Draw the statement block rectangle
 	pWind->DrawRectangle(Left.x, Left.y, Left.x + width, Left.y + height);
 
 	// Write statement text
 	pWind->SetPen(BLACK, 2);
-	pWind->DrawString(Left.x + width / 4, Left.y + height / 4, Text);
+	pWind->DrawString(Left.x + (width - textWidth) / 2, Left.y + (height - textHeight) / 2, Text);
 }
 
-// Draw conditional statement and write the "Text" on it
 void Output::DrawConditionalStat(Point Left, int width, int height, string Text, bool Selected)
 {
 	if (Selected)
@@ -186,7 +193,6 @@ void Output::DrawConditionalStat(Point Left, int width, int height, string Text,
 	pWind->DrawString(midX - width / 4, midY - height / 4, Text);
 }
 
-// Draw start statement and write the "Text" on it
 void Output::DrawStart(Point Left, int width, int height, string Text, bool Selected)
 {
 	if (Selected)
@@ -205,7 +211,6 @@ void Output::DrawStart(Point Left, int width, int height, string Text, bool Sele
 	pWind->DrawString(midX - width / 4, midY - height / 4, Text);
 }
 
-// Draw end statement and write the "Text" on it
 void Output::DrawEnd(Point Left, int width, int height, string Text, bool Selected)
 {
 	if (Selected)
@@ -224,7 +229,6 @@ void Output::DrawEnd(Point Left, int width, int height, string Text, bool Select
 	pWind->DrawString(midX - width / 4, midY - height / 4, Text);
 }
 
-// Draw read statement and write the "Text" on it
 void Output::DrawRead(Point Left, int width, int height, string Text, bool Selected)
 {
 	if (Selected)
@@ -246,7 +250,6 @@ void Output::DrawRead(Point Left, int width, int height, string Text, bool Selec
 	pWind->DrawString(midX - width / 4, midY - height / 4, Text);
 }
 
-// Draw write statement and write the "Text" on it
 void Output::DrawWrite(Point Left, int width, int height, string Text, bool Selected)
 {
 	if (Selected)
