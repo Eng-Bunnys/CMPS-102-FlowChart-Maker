@@ -38,17 +38,77 @@ double Input::GetValue(Output* pO) const	// Reads a double value from the user
 	///TODO: add code to read a double value from the user and assign it to D
 
 	double D = 0;
-		
-	//This function should make any needed validations on the entered text 
-	// to make sure it is a double value (e.g. 12.5, -12.5, -23, -23., -23.0 …etc.).
-
 	pO->PrintMessage("Please enter a value");
 	
-	//Read a double value from the user
+string x = GetString(pO);
+do {
+	if (IsValue(x))
+	{
+		D = stod(x);
+		break;
+
+	}
+	else
+		pO->PrintMessage("Invalid value, ReEnter:");
+
+} while (1);
+return D;
 	
+	//This function should make any needed validations on the entered text 
+	// to make sure it is a double value (e.g. 12.5, -12.5, -23, -23., -23.0 â€¦etc.).
+}
+string Input::GetVariable(Output * pO)  const
+{
+	// this function gets the variable from the user checks if it is a variable or not if not keeps in loop until a variable is entered
+	pO->PrintMessage("Please enter a variable");
+	string D;
+	string x = GetString(pO);
+	do {
+		if (IsValue(x))
+		{
+			D = x;
+			break;
+
+		}
+		else
+			pO->PrintMessage("Invalid variable, ReEnter:");
+
+	} while (1);
 	return D;
+
+
+
 }
 
+string Input::GetArithoperator(Output* pO) const
+{
+	pO->PrintMessage("Enter an arithmetic operator: ");
+	char z;
+	
+	do {
+		z = GetChar(pO);
+		if (z == '+' || z == '-' || z == '*' || z == '/')
+		{
+			break;
+		}
+	} while (1);
+	return z;
+}
+
+	string Input:: GetCompOperator(Output* pO) const
+	{
+		pO->PrintMessage("Enter an Comparsion operator: ");
+		string y;
+		do {
+			y = GetString(pO);
+			if (y == "==" || y == " != " || y == "<" || y == " <= " || y == ">" || y == " >= ")
+			{
+				break;
+			}
+			return y;
+		} while (1);
+
+}
 
 ActionType Input::GetUserAction() const
 {	
