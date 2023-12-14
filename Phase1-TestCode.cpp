@@ -2,7 +2,6 @@
 #include "HelperFn.h"
 #include "GUI\\Input.h"
 #include "GUI\\Output.h"
-#include <iostream>
 
 int main()
 {
