@@ -19,6 +19,7 @@ public:
 	void CreateDesignToolBar();	//Tool bar of the design mode
 	void CreateSimulationToolBar(); //Tool bar of the simulation mode
 
+	void ClearToolBar(); //Clears the tool bar, this was necessary because of how bad the tool bar handling is
 	void ClearStatusBar();	//Clears the status bar
 	void ClearDrawArea();	//Clears the drawing area
 	void ClearOutputBar(); //Clears the Output bar
