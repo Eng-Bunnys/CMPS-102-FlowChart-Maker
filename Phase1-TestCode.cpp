@@ -299,66 +299,52 @@ int main()
 
 	// Getting a String from the user
 	pOut->PrintMessage("Enter a string");
-	string userString = pIn->GetString(pOut);
+	//everytime I see this variable name I laught fr, it's just so bad but I don't really have better options
+	string UserInputStringForTestTwoPointEight = pIn->GetString(pOut);
 
 	// Drawing that string in location (400, 200)
-	pOut->DrawString(400, 200, userString);
+	pOut->DrawString(400, 200, UserInputStringForTestTwoPointEight);
 
 	pIn->GetPointClicked(P); // Wait for any click
 	pOut->ClearDrawArea();
 
-	///////////////////////////////////////////////////////////////////////////////////
-	// TEST 3: Read strings and a value from the user
-	///////////////////////////////////////////////////////////////////////////////////
+	/// Test 3: Read strings and a value from the user
 	pOut->PrintMessage("TEST3: Now Time to test class Input, Click anywhere to continue");
-	// Test 3: Read strings and a value from the user
 	pIn->GetPointClicked(P); // Wait for any click
 
-	// Clear previous messages
-	pOut->ClearStatusBar();
+	pOut->PrintMessage("Testing Input ability to read strings, values, variables and operators");
+	pIn->GetPointClicked(P); // Wait for any click
 
 	// Test GetValue
 	double value = pIn->GetValue(pOut);
-	pOut->PrintMessage("You entered value: " + std::to_string(value));
+	//to_string is a function that changes a value to a string (duh)
+	//Here is where I learnt about it: https://www.geeksforgeeks.org/stdto_string-in-cpp/
+	pOut->PrintMessage("You entered value: " + to_string(value));
 
 	// Wait for another click
 	pIn->GetPointClicked(P);
-
-	// Clear previous messages
-	pOut->ClearStatusBar();
 
 	// Test GetVariable
 	string variable = pIn->GetVariable(pOut);
 	pOut->PrintMessage("You entered variable: " + variable);
 	pIn->GetPointClicked(P); // Wait for any click
 
-	pOut->PrintMessage("Testing Input ability to read strings, values, variables and operators");
-
 	// Test reading an arithmetic operator
-	pOut->PrintMessage("TEST: Enter an arithmetic operator (+, -, *, /)");
-	std::string arithmeticOperator = pIn->GetArithOperator(pOut);
+	pOut->PrintMessage("Enter an arithmetic operator (+, -, *, /)");
+	string arithmeticOperator = pIn->GetArithOperator(pOut);
 	pOut->PrintMessage("Entered arithmetic operator: " + arithmeticOperator);
-	pOut->ClearDrawArea();
 	pIn->GetPointClicked(P); // Wait for any click
 
 	// Test reading a comparison operator
-	pOut->PrintMessage("TEST: Enter a comparison operator (=, !, <, >)");
-	std::string comparisonOperator = pIn->GetCompOperator(pOut);
+	pOut->PrintMessage("Enter a comparison operator (=, !, <, >)");
+	string comparisonOperator = pIn->GetCompOperator(pOut);
 	pOut->PrintMessage("Entered comparison operator: " + comparisonOperator);
-	pOut->ClearDrawArea();
 	pIn->GetPointClicked(P); // Wait for any click
 
-	///////////////////////////////////////////////////////////////////////////////////
-	// TEST 4: Check for the user action
-	///////////////////////////////////////////////////////////////////////////////////
+	///Test 4: User Action
 	pOut->PrintMessage("TEST4: Testing Input ability to detect User Action, click anywhere");
 
 	ActionType ActType;
-
-	////////////
-	// TODO:  You must add a case for EACH action in the following (switch case)
-	////////////
-	////COMPLETE THE SWITCH CASE WITH ALL THE ACTIONS
 
 	do
 	{
@@ -366,46 +352,110 @@ int main()
 
 		switch (ActType)
 		{
+		case ADD_START:
+			pOut->PrintMessage("Action: Add start statement, Click anywhere");
+			break;
+
+		case ADD_END:
+			pOut->PrintMessage("Action: Add end statement, Click anywhere");
+			break;
+
 		case ADD_VALUE_ASSIGN:
-			pOut->PrintMessage("Action: add value assignment statement, Click anywhere");
-			// TODO: Add additional testing or assertions for this action
+			pOut->PrintMessage("Action: Add value assignment statement, Click anywhere");
+			break;
+
+		case ADD_VAR_ASSIGN:
+			pOut->PrintMessage("Action: Add variable assignment statement, Click anywhere");
+			break;
+
+		case ADD_OPER_ASSIGN:
+			pOut->PrintMessage("Action: Add operator assignment statement, Click anywhere");
 			break;
 
 		case ADD_CONDITION:
-			pOut->PrintMessage("Action: add conditional statement, Click anywhere");
-			// TODO: Add additional testing or assertions for this action
+			pOut->PrintMessage("Action: Add conditional statement, Click anywhere");
+			break;
+
+		case ADD_READ:
+			pOut->PrintMessage("Action: Add read statement, Click anywhere");
+			break;
+
+		case ADD_WRITE:
+			pOut->PrintMessage("Action: Add write statement, Click anywhere");
 			break;
 
 		case ADD_CONNECTOR:
-			pOut->PrintMessage("Action: add a connector, Click anywhere");
-			// TODO: Add additional testing or assertions for this action
+			pOut->PrintMessage("Action: Add a connector between two statements, Click anywhere");
 			break;
 
 		case SELECT:
-			pOut->PrintMessage("Action: select action, Click anywhere");
-			// TODO: Add additional testing or assertions for this action
+			pOut->PrintMessage("Action: Select a statement or a connector, Click anywhere");
 			break;
 
-		case STATUS:
-			pOut->PrintMessage("Action: a click on the Status Bar, Click anywhere");
-			// TODO: Add additional testing or assertions for this action
+		case EDIT_STAT:
+			pOut->PrintMessage("Action: Edit a statement, Click anywhere");
 			break;
 
-		case DSN_TOOL:
-			pOut->PrintMessage("Action: a click on the Design Tool Bar, Click anywhere");
-			// TODO: Add additional testing or assertions for this action
+		case DEL:
+			pOut->PrintMessage("Action: Delete a figure, Click anywhere");
 			break;
 
-		case SWITCH_SIM_MODE:
-			pOut->PrintMessage("Action: Switch to Simulation Mode, creating simulation tool bar");
-			// TODO: Add additional testing or assertions for this action
-			pOut->CreateSimulationToolBar(); // THIS TESTS Output::CreateSimulationToolBar() function //////
+		case COPY:
+			pOut->PrintMessage("Action: Copy a figure, Click anywhere");
+			break;
+
+		case CUT:
+			pOut->PrintMessage("Action: Cut a figure, Click anywhere");
+			break;
+
+		case PASTE:
+			pOut->PrintMessage("Action: Paste a figure, Click anywhere");
+			break;
+
+		case SAVE:
+			pOut->PrintMessage("Action: Save the whole graph to a file, Click anywhere");
+			break;
+
+		case LOAD:
+			pOut->PrintMessage("Action: Load a graph from a file, Click anywhere");
 			break;
 
 		case SWITCH_DSN_MODE:
-			pOut->PrintMessage("Action: Switch to Design Mode, creating Design tool bar");
-			// TODO: Add additional testing or assertions for this action
+			pOut->PrintMessage("Action: Switch to Design mode, creating Design tool bar");
 			pOut->CreateDesignToolBar();
+			break;
+
+		case SWITCH_SIM_MODE:
+			pOut->PrintMessage("Action: Switch to Simulation mode, creating simulation tool bar");
+			pOut->CreateSimulationToolBar();
+			break;
+
+		case SIM_VALIDATE:
+			pOut->PrintMessage("Action: Simulation Validate, Click anywhere");
+			break;
+
+		case SIM_RUN:
+			pOut->PrintMessage("Action: Simulation Run, Click anywhere");
+			break;
+
+		case ADD_INPUT_OUTPUT:
+			pOut->PrintMessage("Action: Add an Input or Output statement");
+			break;
+
+		case DRAWING_AREA:
+			pOut->PrintMessage("Action: Click on the drawing area");
+			break;
+
+		case OUTPUT_AREA:
+			pOut->PrintMessage("Action: Click on the output area");
+			break;
+
+		case DSN_TOOL:
+			pOut->PrintMessage("Action: Click on an empty space in the design tool bar");
+			break;
+
+		case STATUS:
+			pOut->PrintMessage("Action: Click on the status bar");
 			break;
 
 		case EXIT:
