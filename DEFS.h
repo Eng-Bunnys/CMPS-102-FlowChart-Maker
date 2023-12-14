@@ -9,7 +9,6 @@ enum  MODE	//Modes of operation
 	SIMULATION
 };
 
-// TODO: Add any action type here
 enum ActionType // The actions supported
 {
 	ADD_START, //Add start statement
@@ -19,9 +18,11 @@ enum ActionType // The actions supported
 	ADD_OPER_ASSIGN,  //Add operator assignment statement
 	ADD_CONDITION,    //Add a conditional statement (for if and while-loop statements)
 	ADD_READ,  //Add read statement
-	ADD_WRITE, //Addd write statemetn
+	ADD_WRITE, //Add write statement
 
 	ADD_CONNECTOR, //Add a connector between two statements
+
+	ADD_INPUT_OUTPUT,
 
 	SELECT,		//Select a statement, a connector
 	EDIT_STAT,	//Edit a statement
@@ -34,14 +35,15 @@ enum ActionType // The actions supported
 	SAVE,		//Save the whole graph to a file
 	LOAD,		//Load a graph from a file
 
+	//SIMULATION MODE
+
 	SWITCH_DSN_MODE,	//Switch to Design mode
-	SWITCH_SIM_MODE,	//Switch to simulatiom mode
+	SWITCH_SIM_MODE,	//Switch to simulation mode
+
+	SIM_VALIDATE,
+	SIM_RUN,
 
 	EXIT,		//Exit the application
-
-
-	//TODO: ADD THE ACTIONS OF SIMULATION MODE
-
 
 	DRAWING_AREA,  //A click on the drawing area
 	OUTPUT_AREA,   //A click on the output area
@@ -49,44 +51,46 @@ enum ActionType // The actions supported
 	STATUS 		   //A click on the status bar
 };
 
-// TODO: you should add more items
-enum DesignMenuItem //The items of the design menu --> THE ORDER MATTERS
+enum DesignMenuItem
 {
-	//Note: Items are ordered here as they appear in menu
-	//If you change the menu items order, change the order here too
-	ITM_VALUE_ASSIGN,//simple assignment statement
-	ITM_COND,		//conditional statement
+	ITM_SELECT, 
+	ITM_EDIT,
+	ITM_SAVE,
+	ITM_LOAD,
+	ITM_READ,
+	ITM_WRITE,
+	ITM_VALUE_ASSIGN,
+	ITM_VAR_ASSIGN,
+	ITM_OP_ASSIGN,
+	ITM_COND,		
+	ITM_START,        
+	ITM_END,
+	ITM_INPUT_OUTPUT,
+	ITM_CONNECTOR,
+	ITM_PASTE,
+	ITM_COPY,
+	ITM_DELETE,
+	ITM_CHANGE_TO_SIM,
+	ITM_EXIT,		
 
-
-	ITM_EXIT,		//Exit
-
-	//TODO: Add more items names here
-
-	ITM_START,         //Add start statement
-	ITM_END,           //Add end statement
-	ITM_READ,          //Add read statement
-	ITM_WRITE,         //Add write statement
-	ITM_CONNECTOR,     //Add connector statement
-
-	DSN_ITM_CNT		//no. of design menu items ==> This should be the last line in this enum
-
+	DSN_ITM_CNT		
 };
 
-// TODO: you should add more items if needed
 enum SimMenuItem //The items of the simulation menu
 {
 	//Note: Items are ordered here as they appear in menu
+	ITM_SELECT_SIM,
+	ITM_EDIT_SIM,
+	ITM_SAVE_SIM,
+	ITM_LOAD_SIM,
 	ITM_VALIDATE,	//Validate
 	ITM_RUN,	    //Run
-
-	//TODO:Add more items names here
+	ITM_CHANGE_TO_DSN_SIM,
+	ITM_EXIT_SIM,
 
 	SIM_ITM_CNT		//no. of simulation menu items ==> This should be the last line in this enum
 
 };
-
-
-
 
 #ifndef NULL
 #define NULL 0
