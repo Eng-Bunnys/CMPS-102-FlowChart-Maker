@@ -169,6 +169,8 @@ ActionType Input::GetUserAction() const
                 return COPY;
             case ITM_DELETE:
                 return DEL;
+            case ITM_INPUT_OUTPUT:
+                return ADD_INPUT_OUTPUT;
             case ITM_CHANGE_TO_SIM:
                 return SWITCH_SIM_MODE;
             case ITM_EXIT:
@@ -190,7 +192,7 @@ ActionType Input::GetUserAction() const
         //[3] User clicks on the status bar
         return STATUS;
     }
-    else // Application is in Simulation mode
+    else // Application is in Simulation mode [Similar Logic]
     {
         //[1] If user clicks on the Simulation Toolbar
         if (y >= 0 && y < UI.ToolBarHeight)
