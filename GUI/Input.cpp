@@ -1,167 +1,226 @@
 
 #include "Input.h"
 #include "Output.h"
+#include "../Utils.h"
 
 Input::Input(window* pW)
 {
-	pWind = pW; //point to the passed window
+    pWind = pW; //point to the passed window
 }
 
-void Input::GetPointClicked(Point &P) const
+void Input::GetPointClicked(Point& P) const
 {
-	pWind->WaitMouseClick(P.x, P.y);	//Wait for mouse click
+    pWind->WaitMouseClick(P.x, P.y); //Wait for mouse click
 }
 
-string Input::GetString(Output *pO) const 
+string Input::GetString(Output* pO) const
 {
-	string Label;
-	char Key;
-	while(1)
-	{
-		pWind->WaitKeyPress(Key);
-		if(Key == 27 )	//ESCAPE key is pressed
-			return "";	//returns nothing as user has cancelled label
-		if(Key == 13 )	//ENTER key is pressed
-			return Label;
-		if((Key == 8) && (Label.size() >= 1))	//BackSpace is pressed
-			Label.resize(Label.size() -1 );			
-		else
-			Label += Key;
-		if (pO)
-			pO->PrintMessage(Label);
-	}
+    string Label;
+    char Key;
+    while (1)
+    {
+        pWind->WaitKeyPress(Key);
+        if (Key == 27)	//ESCAPE key is pressed
+            return "";	//returns nothing as user has cancelled label
+        if (Key == 13)	//ENTER key is pressed
+            return Label;
+        if ((Key == 8) && (Label.size() >= 1))	//BackSpace is pressed
+            Label.resize(Label.size() - 1);
+        else
+            Label += Key;
+        if (pO)
+            pO->PrintMessage(Label);
+    }
 }
 
+///This function is now useless, I will keep it in-case one day it will not be
+//char Input::GetChar(Output* pO) const
+//{
+//    char Key;
+//    while (1)
+//    {
+//        pWind->WaitKeyPress(Key);
+//        if (Key == 27)	//ESCAPE key is pressed
+//            return '\0';	//Returns null character as the user has canceled input, I prefer returning null rather than an empty string
+//        if ((Key == 8) || (Key == 13))	//BackSpace or ENTER key is pressed
+//            return Key;
+//        if (pO)
+//        {
+//            string str(1, Key); //Convert the char to a string
+//            pO->PrintMessage(str);
+//        }
+//    }
+//}
 
-double Input::GetValue(Output* pO) const	// Reads a double value from the user 
+
+double Input::GetValue(Output* pO) const // Reads a double value from the user 
 {
-	///TODO: add code to read a double value from the user and assign it to D
+    double D = 0;
+    string UserInput;
 
-	double D = 0;
-	pO->PrintMessage("Please enter a value");
-	
-string x = GetString(pO);
-do {
-	if (IsValue(x))
-	{
-		D = stod(x);
-		break;
+    pO->PrintMessage("Please enter a value");
 
-	}
-	else
-		pO->PrintMessage("Invalid value, ReEnter:");
+    while (true) {
+        UserInput = GetString(pO);
 
-} while (1);
-return D;
-	
-	//This function should make any needed validations on the entered text 
-	// to make sure it is a double value (e.g. 12.5, -12.5, -23, -23., -23.0 …etc.).
-}
-string Input::GetVariable(Output * pO)  const
-{
-	// this function gets the variable from the user checks if it is a variable or not if not keeps in loop until a variable is entered
-	pO->PrintMessage("Please enter a variable");
-	string D;
-	string x = GetString(pO);
-	do {
-		if (IsValue(x))
-		{
-			D = x;
-			break;
+        if (IsValue(UserInput)) {
+            D = Utils::StringToDouble(UserInput);
+            break;
+        }
+        else pO->PrintMessage("Invalid Input, Enter a valid double: ");
+    }
 
-		}
-		else
-			pO->PrintMessage("Invalid variable, ReEnter:");
-
-	} while (1);
-	return D;
-
-
-
+    return D;
 }
 
-string Input::GetArithoperator(Output* pO) const
-{
-	pO->PrintMessage("Enter an arithmetic operator: ");
-	char z;
-	
-	do {
-		z = GetChar(pO);
-		if (z == '+' || z == '-' || z == '*' || z == '/')
-		{
-			break;
-		}
-		else 
-			pO->PrintMessage("Invalid arithmetic operator,ReEnter: ");
-			
-	} while (1);
-	return z;
+string Input::GetVariable(Output* pO) const {
+    string VariableName;
+
+    pO->PrintMessage("Enter the variable name: ");
+
+    while (true) {
+        VariableName = GetString(pO);
+
+        if (IsVariable(VariableName)) break;
+        else {
+            pO->PrintMessage("Invalid Input, Enter a valid variable name: ");
+        }
+    }
+    return VariableName;
 }
 
-	string Input:: GetCompOperator(Output* pO) const
-	{
-		pO->PrintMessage("Enter an Comparsion operator: ");
-		string y;
-		do {
-			y = GetString(pO);
-			if (y == "==" || y == " != " || y == "<" || y == " <= " || y == ">" || y == " >= ")
-			{
-				break;
-			}
-			else
-				pO->PrintMessage("Invalid comparsion operator,ReEnter: ");
-			return y;
-		} while (1);
+string Input::GetArithOperator(Output* pO) const {
+    string Operator;
 
+    pO->PrintMessage("Enter an arithmetic operator: ");
+
+    while (true) {
+        Operator = GetString(pO);
+
+        // Check if the entered operator is one of the valid arithmetic operators (+, -, *, /)
+        if (Operator == "+" || Operator == "-" || Operator == "*" || Operator == "/") break; // Exit the loop if a valid operator is entered
+        else pO->PrintMessage("Invalid Input, Enter a valid arithmetic operator: ");
+    }
+
+    return Operator;
+}
+
+string Input::GetCompOperator(Output* pO) const {
+    string Operator;
+
+    pO->PrintMessage("Enter a comparison operator: ");
+
+    while (true) {
+        Operator = GetString(pO);
+
+        // Check if the entered operator is one of the valid comparison operators (=, !, <, >)
+        if (Operator == "==" || Operator == "!" || Operator == "<" || Operator == ">") break;  // Exit the loop if a valid operator is entered
+        else pO->PrintMessage("Invalid Input, Enter a valid comparison operator: ");
+    }
+
+    return Operator;
 }
 
 ActionType Input::GetUserAction() const
-{	
-	//This function reads the position where the user clicks to determine the desired action
+{
+    // This function reads the position where the user clicks to determine the desired action
 
-	int x,y;
-	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
+    int x, y;
+    pWind->WaitMouseClick(x, y); // Get the coordinates of the user click
 
-	if(UI.AppMode == DESIGN )	//application is in design mode
-	{
-		//[1] If user clicks on the Toolbar
-		if ( y >= 0 && y < UI.ToolBarHeight)
-		{	
-			//Check whick Menu item was clicked
-			//This assumes that menu items are lined up horizontally
-			int ClickedItem = (x / UI.MenuItemWidth);
-			//Divide x coord of the point clicked by the menu item width (int division)
-			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
-			switch (ClickedItem)
-			{
-			case ITM_VALUE_ASSIGN: return ADD_VALUE_ASSIGN;
-			case ITM_COND: return ADD_CONDITION;
-			case ITM_EXIT: return EXIT;	
-			default: return DSN_TOOL;
-			}
-		}
-	
-		//[2] User clicks on the drawing area
-		if ( y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
-		{
-			if (x <= UI.DrawingAreaWidth)
-				return DRAWING_AREA;	
-			else
-				return OUTPUT_AREA;
-		}
-		
-		//[3] User clicks on the status bar
-		return STATUS;
-	}
-	else	//Application is in Simulation mode
-	{
+    if (UI.AppMode == DESIGN) // Application is in design mode
+    {
+        //[1] If user clicks on the Design Toolbar
+        if (y >= 0 && y < UI.ToolBarHeight)
+        {
+            // Check which Design Menu item was clicked
+            int ClickedItem = (x / UI.MenuItemWidth);
+            switch (ClickedItem)
+            {
+            case ITM_SELECT:
+                return SELECT;
+            case ITM_EDIT:
+                return EDIT_STAT;
+            case ITM_SAVE:
+                return SAVE;
+            case ITM_LOAD:
+                return LOAD;
+            case ITM_READ:
+                return ADD_READ;
+            case ITM_WRITE:
+                return ADD_WRITE;
+            case ITM_VALUE_ASSIGN:
+                return ADD_VALUE_ASSIGN;
+            case ITM_VAR_ASSIGN:
+                return ADD_VAR_ASSIGN;
+            case ITM_OP_ASSIGN:
+                return ADD_OPER_ASSIGN;
+            case ITM_COND:
+                return ADD_CONDITION;
+            case ITM_START:
+                return ADD_START;
+            case ITM_END:
+                return ADD_END;
+            case ITM_CONNECTOR:
+                return ADD_CONNECTOR;
+            case ITM_PASTE:
+                return PASTE;
+            case ITM_COPY:
+                return COPY;
+            case ITM_DELETE:
+                return DEL;
+            case ITM_CHANGE_TO_SIM:
+                return SWITCH_SIM_MODE;
+            case ITM_EXIT:
+                return EXIT;
+            default:
+                return DSN_TOOL;
+            }
+        }
 
-		// TODO: This should be changed after creating the compelete simulation bar 
-		return SWITCH_DSN_MODE;	// THIS SHOULD BE CHANGED
-	}
+        //[2] User clicks on the drawing area
+        if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
+        {
+            if (x <= UI.DrawingAreaWidth)
+                return DRAWING_AREA;
+            else
+                return OUTPUT_AREA;
+        }
 
+        //[3] User clicks on the status bar
+        return STATUS;
+    }
+    else // Application is in Simulation mode
+    {
+        //[1] If user clicks on the Simulation Toolbar
+        if (y >= 0 && y < UI.ToolBarHeight)
+        {
+            // Check which Simulation Menu item was clicked
+            int ClickedItem = (x / UI.MenuItemWidth);
+            switch (ClickedItem)
+            {
+            case ITM_SELECT_SIM:
+                return SELECT;
+            case ITM_EDIT_SIM:
+                return EDIT_STAT;
+            case ITM_SAVE_SIM:
+                return SAVE;
+            case ITM_LOAD_SIM:
+                return LOAD;
+            case ITM_VALIDATE:
+                return SIM_VALIDATE;
+            case ITM_RUN:
+                return SIM_RUN;
+            case ITM_CHANGE_TO_DSN_SIM:
+                return SWITCH_DSN_MODE;
+            case ITM_EXIT_SIM:
+                return EXIT;
+            }
+        }
+
+        return SWITCH_DSN_MODE;
+    }
 }
-
 
 Input::~Input()
 {
