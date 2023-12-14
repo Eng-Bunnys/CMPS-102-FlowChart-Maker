@@ -1,8 +1,12 @@
 #include "Output.h"
 
 #define PI 3.14159
+#define OGStatusBarHeight 50
+#define OGToolBarHeight 50
+#define OG MenuItemWidth 80
 
 Output::Output() {
+    //I've updated the app dimensions to fit more icons
     UI.width = 1550;
     UI.height = 620;
     UI.wx = 15;
@@ -55,6 +59,8 @@ void Output::CreateStatusBar() {
 void Output::CreateDesignToolBar() {
     UI.AppMode = DESIGN; // Design Mode
 
+    ClearToolBar();
+
     string MenuItemImages[DSN_ITM_CNT];
     MenuItemImages[ITM_SELECT] = "images\\Select.jpg";
     MenuItemImages[ITM_EDIT] = "images\\Edit.jpg";
@@ -75,30 +81,42 @@ void Output::CreateDesignToolBar() {
     MenuItemImages[ITM_DELETE] = "images\\delete.jpg";
     MenuItemImages[ITM_CHANGE_TO_SIM] = "images\\Simulate.jpg";
     MenuItemImages[ITM_EXIT] = "images\\Exit.jpg";
+    //Missing bonus operations buttons
 
     for (int i = 0; i < DSN_ITM_CNT; i++)
         pWind->DrawImage(MenuItemImages[i], i * UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
-
-    pWind->SetPen(RED, 2);
-    pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
-
 }
 //Drawing the simulation mode tool bar
 void Output::CreateSimulationToolBar() {
     UI.AppMode = SIMULATION;
 
+    ClearToolBar();
+
     string MenuItemImages[SIM_ITM_CNT];
+    //Old Name + SIM => Same action
     MenuItemImages[ITM_SELECT_SIM] = "images\\Select.jpg";
     MenuItemImages[ITM_EDIT_SIM] = "images\\Edit.jpg";
     MenuItemImages[ITM_SAVE_SIM] = "images\\Save.jpg";
     MenuItemImages[ITM_LOAD_SIM] = "images\\load.jpg";
     MenuItemImages[ITM_VALIDATE] = "images\\Validate.jpg";
-    MenuItemImages[ITM_RUN] = "images\\Run.jpg";
+    MenuItemImages[ITM_RUN] = "images\\run.jpg";
     MenuItemImages[ITM_CHANGE_TO_DSN_SIM] = "images\\DesignMenu.jpg";
     MenuItemImages[ITM_EXIT_SIM] = "images\\Exit.jpg";
 
     for (int i = 0; i < SIM_ITM_CNT; i++)
         pWind->DrawImage(MenuItemImages[i], i * UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
+}
+
+/*
+There is an issue where if the user switches tool bars, the previous tool bar doesn't clear but if there icons in the same position,
+they will be over-written, to fix this and not have icons that do nothing, I've used similar logic in the clear functions
+to clear the entire bar before setting the new icons
+ */
+
+void Output::ClearToolBar() {
+    pWind->SetPen(WHITE, 1);
+    pWind->SetBrush(WHITE);
+    pWind->DrawRectangle(0, 0, UI.width, UI.ToolBarHeight);
 }
 
 // Clear Status bar by drawing a filled white rectangle
@@ -150,7 +168,7 @@ void Output::DrawAssign(Point Left, int Width, int Height, string Text, bool Sel
     int TextWidth, TextHeight;
     pWind->GetStringSize(TextWidth, TextHeight, Text);
 
-    //Adjusting the width and height based on the text size
+    //Adjusting the width and height based on the text size, I will not repeat this for later icons, I just thought it would be cool to test it here
     Width = max(UI.ASSGN_WDTH, TextWidth + 20);
     Height = max(UI.ASSGN_HI, TextHeight + 10);
 
@@ -166,17 +184,19 @@ void Output::DrawConditionalStat(Point Left, int Width, int Height, string Text,
     if (Selected) pWind->SetPen(UI.HighlightColor, 3);
     else pWind->SetPen(UI.DrawColor, 3);
 
-    // Drawing the diamond shape for a conditional statement
+    //I will not be putting the same level of comments later on, they'll be much simplier, too much work
+
+    //Drawing the diamond shape [conditional statement]
     int MidX = Left.x + Width / 2;
     int MidY = Left.y + Height / 2;
 
-    // Calculate and draw the lines for the diamond
+    //Calculating the coords then drawing the lines to draw a diamond
     pWind->DrawLine(MidX, MidY - Height / 2, MidX + Width / 2, MidY);
     pWind->DrawLine(MidX + Width / 2, MidY, MidX, MidY + Height / 2);
     pWind->DrawLine(MidX, MidY + Height / 2, MidX - Width / 2, MidY);
     pWind->DrawLine(MidX - Width / 2, MidY, MidX, MidY - Height / 2);
 
-    // Writing the text inside of the shape
+    //Writing the text inside of the shape
     pWind->SetPen(BLACK, 2);
     pWind->DrawString(MidX - Width / 4, MidY - Height / 4, Text);
 }
@@ -185,7 +205,7 @@ void Output::DrawStart(Point Left, int Width, int Height, string Text, bool Sele
     if (Selected) pWind->SetPen(UI.HighlightColor, 3);
     else pWind->SetPen(UI.DrawColor, 3);
 
-    //Drawing a circle for the start statement
+    //Drawing a ellipse [start statement]
     int MidX = Left.x + Width / 2;
     int MidY = Left.y + Height / 2;
 
@@ -200,7 +220,7 @@ void Output::DrawEnd(Point Left, int Width, int Height, string Text, bool Select
     if (Selected) pWind->SetPen(UI.HighlightColor, 3);
     else pWind->SetPen(UI.DrawColor, 3);
 
-    //Drawing an ellipse for the end statement
+    //Drawing an ellipse [end statement]
     int MidX = Left.x + Width / 2;
     int MidY = Left.y + Height / 2;
 
@@ -215,17 +235,30 @@ void Output::DrawRead(Point Left, int Width, int Height, string Text, bool Selec
     if (Selected) pWind->SetPen(UI.HighlightColor, 3);
     else pWind->SetPen(UI.DrawColor, 3);
 
-    //Drawing the parallelogram shape for a Read statement
+    //Drawing the parallelogram shape [Read statement]
     int MidX = Left.x + Width / 2;
     int MidY = Left.y + Height / 2;
 
+    //I first started by drawing a rectangle shape and adjusting the sides lengths then adjusting the bottom line
+
     //Drawing the parallelogram
     pWind->DrawLine(Left.x, Left.y, Left.x + Width, Left.y);
-    pWind->DrawLine(Left.x + Width, Left.y, Left.x + (2 * Width) / 3, Left.y + Height);
-    pWind->DrawLine(Left.x + (2 * Width) / 3, Left.y + Height, Left.x - Width / 3, Left.y + Height);
-    pWind->DrawLine(Left.x - Width / 3, Left.y + Height, Left.x, Left.y);
+    //Draw a line from the left-top point (Left.x, Left.y) to the right-top point (Left.x + Width, Left.y)
+    //This creates the top edge of the parallelogram shape
 
-    // Writing the text inside of the shape
+    pWind->DrawLine(Left.x + Width, Left.y, Left.x + (2 * Width) / 3, Left.y + Height);
+    //Draw a line from the right-top point (Left.x + Width, Left.y) to the right-bottom point (Left.x + (2 * Width) / 3, Left.y + Height)
+    //This creates the right side of the parallelogram shape
+
+    pWind->DrawLine(Left.x + (2 * Width) / 3, Left.y + Height, Left.x - Width / 3, Left.y + Height);
+    //Draw a line from the right-bottom point (Left.x + (2 * Width) / 3, Left.y + Height) to the left-bottom point (Left.x - Width / 3, Left.y + Height)
+    //This creates the bottom edge of the parallelogram shape
+
+    pWind->DrawLine(Left.x - Width / 3, Left.y + Height, Left.x, Left.y);
+    //Draw a line from the left-bottom point (Left.x - Width / 3, Left.y + Height) to the left-top point (Left.x, Left.y)
+    //This creates the left side of the parallelogram shape
+
+    //Writing the text inside of the shape
     pWind->SetPen(BLACK, 2);
     pWind->DrawString(MidX - Width / 4, MidY - Height / 4, Text);
 }
