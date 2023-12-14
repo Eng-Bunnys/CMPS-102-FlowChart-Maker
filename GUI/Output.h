@@ -5,13 +5,13 @@
 
 class Output	//The application manager should have a pointer to this class
 {
-private:	
+private:
 	window* pWind;	//Pointer to the Graphics Window
 	int ConnectorWidth;
 public:
-	Output();	
+	Output();
 
-	window* CreateWind(int, int, int , int);
+	window* CreateWind(int, int, int, int);
 	Input* CreateInput(); //Creates a pointer to the Input object	
 
 	void CreateStatusBar(); //Creates status bar
@@ -22,12 +22,12 @@ public:
 	void ClearStatusBar();	//Clears the status bar
 	void ClearDrawArea();	//Clears the drawing area
 	void ClearOutputBar(); //Clears the Output bar
-	
+
 	void PrintMessage(string msg);	//Prints a message on Status bar
 	void DrawString(const int, const int, const string);  //Writes a string in the specified location
 
 	// -- Statements Drawing Functions
-	void DrawAssign(Point Left, int width, int height, string Text, bool Selected=false);
+	void DrawAssign(Point Left, int width, int height, string Text, bool Selected = false);
 
 	void DrawConditionalStat(Point Left, int width, int height, string Text, bool Selected = false);
 	void DrawStart(Point Left, int width, int height, string Text, bool Selected = false);
