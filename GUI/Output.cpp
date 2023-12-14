@@ -251,12 +251,6 @@ void Output::DrawWrite(Point Left, int Width, int Height, string Text, bool Sele
 
 //Draw a connector line between two points
 void Output::DrawConnector(Point Start, Point End, bool Selected) {
-    //Drawing the first point
-    pWind->DrawPixel(Start.x, Start.y);
-
-    //Drawing the second point
-    pWind->DrawPixel(End.x, End.y);
-
     if (Selected) pWind->SetPen(UI.HighlightColor, ConnectorWidth);
     else pWind->SetPen(UI.DrawColor, ConnectorWidth);
 
