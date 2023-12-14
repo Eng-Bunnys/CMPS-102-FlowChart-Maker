@@ -100,7 +100,7 @@ void Output::CreateSimulationToolBar() {
     MenuItemImages[ITM_LOAD_SIM] = "images\\load.jpg";
     MenuItemImages[ITM_VALIDATE] = "images\\Validate.jpg";
     MenuItemImages[ITM_RUN] = "images\\run.jpg";
-    MenuItemImages[ITM_CHANGE_TO_DSN_SIM] = "images\\DesignMenu.jpg";
+    MenuItemImages[ITM_CHANGE_TO_DSN_SIM] = "images\\SwitchToDesign.jpg";
     MenuItemImages[ITM_EXIT_SIM] = "images\\Exit.jpg";
 
     for (int i = 0; i < SIM_ITM_CNT; i++)
