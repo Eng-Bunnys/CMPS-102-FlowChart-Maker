@@ -1,9 +1,6 @@
 #include "Output.h"
 
 #define PI 3.14159
-#define OGStatusBarHeight 50
-#define OGToolBarHeight 50
-#define OG MenuItemWidth 80
 
 Output::Output() {
     //I've updated the app dimensions to fit more icons
@@ -292,6 +289,7 @@ void Output::DrawConnector(Point Start, Point End, bool Selected) {
 
     //The next part is drawing the arrow heads, which is a bit tricky, I've written comments explaining why I did what I did
 
+    //atan2 -> https://www.codecademy.com/resources/docs/cpp/math-functions/atan2#:~:text=The%20atan2()%20function%20returns,%2Fx)%2C%20in%20radians.
     double angle = atan2(End.y - Start.y, End.x - Start.x);
     // Calculate the angle between the line segment and the x-axis using atan2
     // The difference in y-coordinates and x-coordinates between the start and end points is used
