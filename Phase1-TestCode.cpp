@@ -298,7 +298,7 @@ int main()
 
 	// Getting a String from the user
 	pOut->PrintMessage("Enter a string");
-	//everytime I see this variable name I laught fr, it's just so bad but I don't really have better options
+	//everytime I see this variable name I laugh fr, it's just so bad but I don't really have better options
 	string UserInputStringForTestTwoPointEight = pIn->GetString(pOut);
 
 	// Drawing that string in location (400, 200)
@@ -353,39 +353,60 @@ int main()
 		{
 		case ADD_START:
 			pOut->PrintMessage("Action: Add start statement, Click anywhere");
+			P.x = 100;
+			P.y = 100;
+			pOut->DrawStart(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "Start");
 			break;
 
 		case ADD_END:
 			pOut->PrintMessage("Action: Add end statement, Click anywhere");
+			pOut->DrawEnd(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "End");
 			break;
 
 		case ADD_VALUE_ASSIGN:
 			pOut->PrintMessage("Action: Add value assignment statement, Click anywhere");
+			pOut->DrawAssign(P, UI.ASSGN_WDTH, UI.ASSGN_HI, " = 2");
 			break;
 
 		case ADD_VAR_ASSIGN:
 			pOut->PrintMessage("Action: Add variable assignment statement, Click anywhere");
+			pOut->DrawAssign(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "x = ");
 			break;
 
 		case ADD_OPER_ASSIGN:
 			pOut->PrintMessage("Action: Add operator assignment statement, Click anywhere");
+			pOut->DrawAssign(P, UI.ASSGN_WDTH, UI.ASSGN_HI, " = ");
 			break;
 
 		case ADD_CONDITION:
 			pOut->PrintMessage("Action: Add conditional statement, Click anywhere");
+			pOut->DrawConditionalStat(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "If x > y");
 			break;
 
 		case ADD_READ:
 			pOut->PrintMessage("Action: Add read statement, Click anywhere");
+			pOut->DrawRead(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "Read x");
 			break;
 
 		case ADD_WRITE:
 			pOut->PrintMessage("Action: Add write statement, Click anywhere");
+			pOut->DrawWrite(P, UI.ASSGN_WDTH, UI.ASSGN_HI, "Write x");
 			break;
 
 		case ADD_CONNECTOR:
+		{
 			pOut->PrintMessage("Action: Add a connector between two statements, Click anywhere");
+			Point StartPointNormalA;
+			StartPointNormal.x = 100;
+			StartPointNormal.y = 200;
+
+			Point EndPointNormalA;
+			EndPointNormal.x = 300;
+			EndPointNormal.y = 200;
+
+			pOut->DrawConnector(StartPointNormalA, EndPointNormalA);
 			break;
+		}
 
 		case SELECT:
 			pOut->PrintMessage("Action: Select a statement or a connector, Click anywhere");
@@ -435,10 +456,6 @@ int main()
 
 		case SIM_RUN:
 			pOut->PrintMessage("Action: Simulation Run, Click anywhere");
-			break;
-
-		case ADD_INPUT_OUTPUT:
-			pOut->PrintMessage("Action: Add an Input or Output statement");
 			break;
 
 		case DRAWING_AREA:
