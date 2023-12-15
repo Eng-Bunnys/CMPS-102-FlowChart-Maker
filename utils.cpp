@@ -71,43 +71,29 @@ double Utils::StringToDouble(const std::string& InputString) {
     }
 
     double Result = 0.0;
-    int Sign = 1;
-    int DecimalIndex = -1;
-    //If you're interested on what size_t is: https://stackoverflow.com/questions/502856/whats-the-difference-between-size-t-and-int-in-c
-    for (size_t i = 0; i < InputString.length(); ++i) {
-        char CurrentCharacter = InputString[i];
+    bool DecimalPointHasPassed = false;
+    int NumberOfDecimals = 0;
+    bool IsNegative = false;
 
-        if (CurrentCharacter == '-') {
-            if (i != 0) {
-                throw std::invalid_argument("Invalid input: " + InputString);
-            }
-            Sign = -1;
+    for (size_t i = 0; i < InputString.length(); i++) {
+        if (InputString[i] == '-') {
+            IsNegative = true;
         }
-        else if (CurrentCharacter == '.') {
-            if (DecimalIndex != -1) {
-                throw std::invalid_argument("Invalid input: " + InputString);
-            }
-            DecimalIndex = i;
+        else if (InputString[i] == '.') {
+            DecimalPointHasPassed = true;
         }
-        else if (CurrentCharacter >= '0' && CurrentCharacter <= '9') {
-            Result = Result * 10 + (CurrentCharacter - '0');
+        else if (InputString[i] >= '0' && InputString[i] <= '9') {
+            if (DecimalPointHasPassed) {
+                NumberOfDecimals++;
+            }
+            Result = Result * 10 + (InputString[i] - '0');
         }
         else {
-            throw std::invalid_argument("Invalid character in the string: " + InputString);
+            break;
         }
     }
 
-    // Adjust result based on the position of the decimal point
-    if (DecimalIndex != -1) {
-        Result /= std::pow(10, InputString.length() - DecimalIndex - 1);
+    Result /= std::pow(10, NumberOfDecimals);
 
-        // Remove trailing zeros by erasing from the end [This will not work for some reason]
-        size_t length = InputString.length();
-        while (length > DecimalIndex + 1 && InputString[length - 1] == '0') {
-            --length;
-        }
-        InputString.substr(0, length);
-    }
-
-    return Result * Sign;
+    return IsNegative ? -Result : Result;
 }
