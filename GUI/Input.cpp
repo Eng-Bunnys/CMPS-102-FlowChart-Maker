@@ -169,8 +169,6 @@ ActionType Input::GetUserAction() const
                 return COPY;
             case ITM_DELETE:
                 return DEL;
-            case ITM_INPUT_OUTPUT:
-                return ADD_INPUT_OUTPUT;
             case ITM_CHANGE_TO_SIM:
                 return SWITCH_SIM_MODE;
             case ITM_EXIT:
