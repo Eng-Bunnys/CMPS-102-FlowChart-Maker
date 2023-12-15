@@ -22,8 +22,6 @@ enum ActionType // The actions supported
 
 	ADD_CONNECTOR, //Add a connector between two statements
 
-	ADD_INPUT_OUTPUT,
-
 	SELECT,		//Select a statement, a connector
 	EDIT_STAT,	//Edit a statement
 
@@ -65,7 +63,6 @@ enum DesignMenuItem
 	ITM_COND,		
 	ITM_START,        
 	ITM_END,
-	ITM_INPUT_OUTPUT,
 	ITM_CONNECTOR,
 	ITM_PASTE,
 	ITM_COPY,
