@@ -113,8 +113,8 @@ string Input::GetCompOperator(Output* pO) const {
     while (true) {
         Operator = GetString(pO);
 
-        // Check if the entered operator is one of the valid comparison operators (=, !, <, >)
-        if (Operator == "==" || Operator == "!" || Operator == "<" || Operator == ">") break;  // Exit the loop if a valid operator is entered
+        // Check if the entered operator is one of the valid comparison operators (==, !, <, >)
+        if (Operator == "==" || Operator == "!" || Operator == "<" || Operator == ">" || Operator == ">=" || Operator == "<=" || Operator == "!=") break;  // Exit the loop if a valid operator is entered
         else pO->PrintMessage("Invalid Input, Enter a valid comparison operator: ");
     }
 
