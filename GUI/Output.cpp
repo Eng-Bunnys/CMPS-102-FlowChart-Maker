@@ -3,7 +3,7 @@
 #define PI 3.14159
 
 Output::Output() {
-    //I've updated the app dimensions to fit more icons
+    //I've updated the app dimensions to fit more icons [Still kinda buggy ngl]
     UI.width = 1550;
     UI.height = 620;
     UI.wx = 15;
@@ -29,7 +29,7 @@ Output::Output() {
     // Create the output window
     pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
     // Change the title
-    pWind->ChangeTitle("GBF Flowchart Maker");
+    pWind->ChangeTitle("Flowchart Maker");
 
     pWind->SetPen(RED, 3);
     CreateDesignToolBar();
@@ -71,7 +71,6 @@ void Output::CreateDesignToolBar() {
     MenuItemImages[ITM_COND] = "images\\Condition.jpg";
     MenuItemImages[ITM_START] = "images\\Start_Oval.jpg";
     MenuItemImages[ITM_END] = "images\\End_Oval.jpg";
-    MenuItemImages[ITM_INPUT_OUTPUT] = "images\\InputOutput.jpg";
     MenuItemImages[ITM_CONNECTOR] = "images\\Connector.jpg";
     MenuItemImages[ITM_PASTE] = "images\\Paste.jpg";
     MenuItemImages[ITM_COPY] = "images\\copy.jpg";
@@ -176,27 +175,34 @@ void Output::DrawAssign(Point Left, int Width, int Height, string Text, bool Sel
     pWind->SetPen(BLACK, 2);
     pWind->DrawString(Left.x + (Width - TextWidth) / 2, Left.y + (Height - TextHeight) / 2, Text);
 }
-//Diamond
 void Output::DrawConditionalStat(Point Left, int Width, int Height, string Text, bool Selected) {
-    if (Selected) pWind->SetPen(UI.HighlightColor, 3);
-    else pWind->SetPen(UI.DrawColor, 3);
+    if (Selected==true) {
+        pWind->SetPen(UI.HighlightColor, 3);
+    }
+    else {
+        pWind->SetPen(UI.DrawColor, 3);
+    }
 
-    //I will not be putting the same level of comments later on, they'll be much simplier, too much work
-
-    //Drawing the diamond shape [conditional statement]
     int MidX = Left.x + Width / 2;
     int MidY = Left.y + Height / 2;
 
-    //Calculating the coords then drawing the lines to draw a diamond
-    pWind->DrawLine(MidX, MidY - Height / 2, MidX + Width / 2, MidY);
-    pWind->DrawLine(MidX + Width / 2, MidY, MidX, MidY + Height / 2);
-    pWind->DrawLine(MidX, MidY + Height / 2, MidX - Width / 2, MidY);
-    pWind->DrawLine(MidX - Width / 2, MidY, MidX, MidY - Height / 2);
+    int TopY = MidY - Height / 2;
+    int RightX = MidX + Width / 2;
+    int BottomY = MidY + Height / 2;
+    int LeftX = MidX - Width / 2;
 
-    //Writing the text inside of the shape
+    // Drawing the lines to form a diamond
+    pWind->DrawLine(MidX, TopY, RightX, MidY);
+    pWind->DrawLine(RightX, MidY, MidX, BottomY);
+    pWind->DrawLine(MidX, BottomY, LeftX, MidY);
+    pWind->DrawLine(LeftX, MidY, MidX, TopY);
+
     pWind->SetPen(BLACK, 2);
-    pWind->DrawString(MidX - Width / 4, MidY - Height / 4, Text);
+    int TextX = MidX - Width / 4;
+    int TextY = MidY - Height / 4;
+    pWind->DrawString(TextX, TextY, Text);
 }
+
 //Oval
 void Output::DrawStart(Point Left, int Width, int Height, string Text, bool Selected) {
     if (Selected) pWind->SetPen(UI.HighlightColor, 3);
