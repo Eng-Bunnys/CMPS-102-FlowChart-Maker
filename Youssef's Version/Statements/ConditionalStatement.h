@@ -65,6 +65,10 @@ public:
      * @return True if the point is inside the statement, false otherwise.
      */
     virtual bool ContainsPoint(Point position);
+
+    virtual Statement* CopyStatement();
+
+    virtual void SetPosition(Point P);
 };
 
 #endif // !CONDITIONAL_STATEMENT_H

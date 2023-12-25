@@ -39,6 +39,9 @@ public:
      * @return True if the point is inside the Start shape, false otherwise.
      */
     virtual bool ContainsPoint(Point P);
+
+    virtual Statement* CopyStatement();
+    virtual void SetPosition(Point P);
 };
 
 #endif

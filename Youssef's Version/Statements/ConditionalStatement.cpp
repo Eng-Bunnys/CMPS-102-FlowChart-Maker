@@ -82,3 +82,18 @@ bool ConditionalStatement::ContainsPoint(Point p)
     }
     return false;
 }
+
+Statement* ConditionalStatement::CopyStatement()
+{
+    Statement* CopiedStatement = new ConditionalStatement(Point(0, 0), ((ConditionalStatement*)this)->LHS, ((ConditionalStatement*)this)->Operator, ((ConditionalStatement*)this)->RHS);
+    return CopiedStatement;
+}
+
+void ConditionalStatement::SetPosition(Point P) {
+    LeftCorner = P;
+    LeftCorner.x = P.x - UI.COND_WDTH / 2;
+    LeftCorner.y = P.y + UI.COND_HI / 2;
+
+    /// setOutlet();
+   /// setIntlet();
+}

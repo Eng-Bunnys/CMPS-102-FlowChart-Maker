@@ -1,8 +1,6 @@
 #include "OperatorAssign.h"
 #include <sstream>
 
-using namespace std;
-
 /**
  * @brief Constructor for the OperatorAssign class.
  * @param Lcorner The top-left corner of the OperatorAssign statement.
@@ -103,4 +101,10 @@ bool OperatorAssign::ContainsPoint(Point p)
         return true;
     }
     return false;
+}
+
+Statement* OperatorAssign::CopyStatement()
+{
+    Statement* CopiedStatement = new OperatorAssign(Point(0, 0), ((OperatorAssign*)this)->LHS, ((OperatorAssign*)this)->RHSFirst, ((OperatorAssign*)this)->Operator, ((OperatorAssign*)this)->RHSSecond);
+    return CopiedStatement;
 }

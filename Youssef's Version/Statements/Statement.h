@@ -46,6 +46,8 @@ public:
 
 	int GetID() const;
 	virtual bool ContainsPoint(Point P) = 0;
+	virtual Statement* CopyStatement() = 0;
+	virtual void SetPosition(Point P) = 0;
 
 };
 

@@ -9,7 +9,7 @@ class End : public Statement
 private:
     Connector* pOutConn; // Pointer to the outgoing connector
     Point LeftCorner;    // Top-left corner of the End statement
-    Point Outlet;        // Outlet point of the statement
+    Point Inlet;        // Inlet point of the statement
 
 public:
     /**
@@ -27,6 +27,8 @@ public:
     // Implement the pure virtual function from the base class
     virtual void UpdateStatementText(); // Updates the text representation of the End statement
     virtual bool ContainsPoint(Point P); // Checks if a given point is inside the boundaries of the End statement.
+    virtual Statement* CopyStatement();
+    virtual void SetPosition(Point P);
 };
 
 #endif

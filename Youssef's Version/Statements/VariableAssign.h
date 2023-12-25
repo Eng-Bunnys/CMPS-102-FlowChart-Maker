@@ -59,6 +59,8 @@ public:
      * @return True if the point is inside the VariableAssign shape, false otherwise.
      */
     virtual bool ContainsPoint(Point P);
+
+    virtual Statement* CopyStatement();
 };
 
 #endif

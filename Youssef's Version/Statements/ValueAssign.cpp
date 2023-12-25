@@ -79,3 +79,9 @@ bool ValueAssign::ContainsPoint(Point p)
     }
     return false;
 }
+
+Statement* ValueAssign::CopyStatement()
+{
+    Statement* CopiedStatement = new ValueAssign(Point(0, 0), ((ValueAssign*)this)->LHS, ((ValueAssign*)this)->RHS);
+    return CopiedStatement;
+}

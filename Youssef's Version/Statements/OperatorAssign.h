@@ -73,6 +73,7 @@ public:
      * @return True if the point is inside the statement, false otherwise.
      */
     virtual bool ContainsPoint(Point P);
+    virtual Statement* CopyStatement();
 };
 
 #endif // OPERATOR_ASSIGN_H

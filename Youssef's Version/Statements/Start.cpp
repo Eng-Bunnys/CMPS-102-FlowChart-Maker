@@ -42,3 +42,9 @@ bool Start::ContainsPoint(Point p)
     }
     return false;
 }
+
+Statement* Start::CopyStatement()
+{
+    Statement* CopiedStatement = new Start(Point(0, 0));
+    return CopiedStatement;
+}

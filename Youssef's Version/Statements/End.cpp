@@ -7,8 +7,8 @@
 End::End(Point Lcorner) {
     LeftCorner = Lcorner;
     pOutConn = NULL; // Initialize outgoing connector to null
-    Outlet.x = LeftCorner.x + UI.START_WDTH / 2;
-    Outlet.y = LeftCorner.y + UI.START_HI;
+    Inlet.x = LeftCorner.x + UI.START_WDTH / 2;
+    Inlet.y = LeftCorner.y + UI.START_HI;
 }
 
 /**
@@ -36,4 +36,19 @@ bool End::ContainsPoint(Point p) {
         return true;
     }
     return false;
+}
+
+Statement* End::CopyStatement()
+{
+    Statement* CopiedStatement = new End(Point(0, 0));
+    return CopiedStatement;
+}
+
+void End::SetPosition(Point P)
+{
+    LeftCorner = P;
+    LeftCorner.x = P.x - UI.START_WDTH / 2;
+    LeftCorner.y = P.y;
+    Inlet.x = LeftCorner.x + UI.START_WDTH / 2;
+    Inlet.y = LeftCorner.y - (0.07 * UI.START_HI);
 }

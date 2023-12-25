@@ -79,3 +79,9 @@ bool VariableAssign::ContainsPoint(Point p)
     }
     return false;
 }
+
+Statement* VariableAssign::CopyStatement()
+{
+    Statement* CopiedStatement = new VariableAssign(Point(0, 0), ((VariableAssign*)this)->LHS, ((VariableAssign*)this)->RHS);
+    return CopiedStatement;
+}

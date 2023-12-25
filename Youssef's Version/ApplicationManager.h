@@ -19,6 +19,7 @@ private:
 	int ConnCount;		//Actual number of connectors
 	Statement* StatList[MaxCount];	//List of all statements (Array of pointers)
 	Connector* ConnList[MaxCount];	//List of all connectors (Array of pointers)
+	Statement* SelectedStatements[MaxCount];
 
 	Statement* pSelectedStat; //a pointer to the last selected statement
 	//you can set and get this pointer
@@ -37,6 +38,15 @@ public:
 	ActionType GetUserAction() const; //Reads the input command from the user 
 	//and returns the corresponding action type
 	void ExecuteAction(ActionType);  //Creates an action and executes it
+
+	// Adds a selected statement to the list of selected statements
+	void AddSelected(Statement* pStat);
+	// Removes a selected statement from the list of selected statements
+	void RemoveSelected(Statement* pStat);
+	// Clears the list of selected statements
+	void EmptySelectedList();
+	// Updates the interface to show the selected statements
+	void UpdateSelectedInterface() const;
 
 	// == Statements/Connector Management Functions ==
 	void AddStatement(Statement* pStat);    //Adds a new Statement to the Flowchart
