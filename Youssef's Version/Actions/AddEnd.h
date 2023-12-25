@@ -4,11 +4,14 @@
 #include "Action.h"
 #include "../Statements/Statement.h"
 
-// Add Start Statement Action
-// This class is responsible for
-// 1 - Getting Start statement coordinates from the user
-// 2 - Creating an object of Start class
-// 3 - Adding the created object to the list of statements of the application manager
+/**
+ * @brief AddEnd class for adding End statements to the flowchart.
+ *
+ * This class is responsible for:
+ * 1. Getting End statement coordinates from the user.
+ * 2. Creating an object of the End class.
+ * 3. Adding the created object to the list of statements in the application manager.
+ */
 class AddEnd : public Action
 {
 private:
@@ -16,12 +19,22 @@ private:
     Point Position;
 
 public:
+    /**
+     * @brief Constructor for AddEnd.
+     * @param pAppManager Pointer to the ApplicationManager.
+     */
     AddEnd(ApplicationManager* pAppManager);
 
-    // Read Start statement position
+    /**
+     * @brief Reads the End statement position from user input.
+     *        Prompts the user to click on the flowchart to place the End statement.
+     */
     virtual void ReadActionParameters();
 
-    // Create and add a Start statement to the list of statements
+    /**
+     * @brief Executes the action of adding an End statement to the flowchart.
+     *        Creates a new End statement at the specified position and adds it to the list of statements.
+     */
     virtual void Execute();
 };
 
