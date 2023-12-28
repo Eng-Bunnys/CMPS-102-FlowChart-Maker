@@ -1,85 +1,89 @@
-#include <iostream>
-#include "Helper.h"
-#include <vector>
-#include <algorithm>
-using namespace std;
-void removeSpaces(string& input) {
-	input.erase(remove(input.begin(), input.end(), ' '), input.end());
-}
-bool IsValue(string input) {
-	if (input.length() == 0) {
-		return false;
-	} removeSpaces(input);
-	bool hasadot = false, hasadigit = false, hasanegative = false;
-	for (int i = 0; i < input.length(); i++) {
-		char currentcharacter = input[i];
-		if (currentcharacter == '-' && i != 0) {
-			return false;
-		}
-		else if (currentcharacter == '-' && i == 0) {
-			hasanegative = true;
-		}
-		else if (currentcharacter == '.' && hasanegative == true && i == 1) {
-			return false;
-		}
-		else if (currentcharacter == '.' && i == 0) {
-			return false;
-		}
-		else if (currentcharacter == '.') {
-			if (hasadot == true) {
-				return false;
-			}
-			hasadot = true;
-		}
-		else if (!((currentcharacter >= '0' && currentcharacter <= '9') || currentcharacter == 'e' || currentcharacter == '-' || currentcharacter == ' ')) {
-			return false;
-		}
-		else {
-			hasadigit = true;
-		}
-	} return hasadigit;
-}
-bool isCppKeyword(const string& input) {
-	// List of C++ keywords (you can expand this list as needed)
-	vector<string> keywords = {
-		"auto", "break", "case", "char", "const", "continue", "default", "do", "double",
-		"else", "enum", "extern", "float", "for", "goto", "if", "int", "long", "register",
-		"return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef",
-		"union", "unsigned", "void", "volatile", "while"
-		// Add more keywords if needed
-	};
 
-	// Convert the input string to lowercase for case-insensitive comparison
-	string lowercaseInput = input;
-	transform(lowercaseInput.begin(), lowercaseInput.end(), lowercaseInput.begin(), ::tolower);
+#include "HelperFn.h"
+#include "Utils.h"
 
-	// Check if the lowercase input is in the list of keywords
-	return find(keywords.begin(), keywords.end(), lowercaseInput) != keywords.end();
-}
-bool IsVariable(string input) {
-	if (input.length() == 0) {
-		return false;
-	}
-	if (isCppKeyword(input)) {
-		return false;
-	}
-	char first = input[0];
-	if (!((first >= 'a' && first <= 'z') || (first >= 'A' && first <= 'Z') || first == '_')) {
-		return false;
-	}
-	for (int i = 0; i < input.length(); i++) {
-		char currentcharacter = input[i];
-		if (currentcharacter == ' ') {
-			return false;
+/*
+ * @example Input = -12.5 Output = 1 , Input = Youssef Output = 0
+ *
+ * @param [string] The input string that will be checked.
+ * @return [bool] True if the input is a valid double or not
+ */
+bool IsValue(string input)
+{
+	if (input.empty())
+		return false; // If the string has no length
+
+	bool HasDigit = false, HasDot = false;
+
+	for (int i = 0; i < input.length(); i++)
+	{
+		char CurrentCharacter = input[i]; // The current character iteration
+
+		if (CurrentCharacter == '-')
+		{
+			if (i != 0)
+				return false; // If a minus sign is encountered at any position other than the first, it is not a valid number
 		}
-		if (!(currentcharacter == '_' || (currentcharacter >= '0' && currentcharacter <= '9') || (currentcharacter >= 'a' && currentcharacter <= 'z') || (currentcharacter >= 'A' && currentcharacter <= 'Z'))) {
-			return false;
+		else if (CurrentCharacter == '.')
+		{
+			if (HasDot || !HasDigit)
+				return false; // If a dot is found and either dot or digit has already been found or if no digit is found before the dot, then it is not a valid double number
+			HasDot = true;
 		}
-	} return true;
+		else if (!(CurrentCharacter >= '0' && CurrentCharacter <= '9'))
+		{
+			return false; // If a non-digit character is found
+		}
+		else
+		{
+			HasDigit = true;
+		}
+	}
+
+	return HasDigit || (HasDot && HasDigit); // If at least one digit is found, or if a dot and at least one digit is found.
 }
+
+/*
+ * Check if the given input string is a valid identifier, [a-z or A-Z] or (_)
+ * can contain numbers (0-9)
+ *
+ * @param input The input string to be checked.
+ * @return True if the input is a valid identifier, false otherwise.
+ */
+bool IsVariable(string input)
+{
+	if (input.empty())
+		return false;
+	if (Utils::isCppKeyword(input))
+		return false;
+	char FirstCharacter = input[0];
+	// Checking if the first character is not a valid letter from the English alphabet OR if it's an underscore
+	if (!((FirstCharacter >= 'a' && FirstCharacter <= 'z') || (FirstCharacter >= 'A' && FirstCharacter <= 'Z') || FirstCharacter == '_'))
+		return false;
+
+	// Note: unsigned means it cannot store negative numbers but doubles the value of the positive meaning other
+	//  than storing 32 bits it can store double that [2^32 - 1]
+
+	for (unsigned int i = 1; i < input.length(); i++)
+	{
+		char CurrentCharacter = input[i];
+		// If any of the characters is not a letter, number or underscore
+		if (!((CurrentCharacter >= 'a' && CurrentCharacter <= 'z') || (CurrentCharacter >= 'A' && CurrentCharacter <= 'Z') || (CurrentCharacter >= '0' && CurrentCharacter <= '9') || CurrentCharacter == '_'))
+			return false;
+	}
+	return true; // If all checks were passed
+}
+
+/*
+ * @param input The input string
+ * @returns Enum value
+ */
 OpType ValueOrVariable(string input)
 {
-	if (IsValue(input)) return VALUE_OP;
-	if (IsVariable(input)) return VARIABLE_OP;
-	else return INVALID_OP;
+	if (IsValue(input))
+		return VALUE_OP;
+	if (IsVariable(input))
+		return VARIABLE_OP;
+	else
+		return INVALID_OP;
 }

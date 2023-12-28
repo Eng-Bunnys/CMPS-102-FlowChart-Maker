@@ -12,7 +12,6 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1AC3DDD7-FDDE-487E-A2A4-52A8FCF7BDB9}</ProjectGuid>
-    <RootNamespace>PT Project</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -125,6 +124,25 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actions\AddConditionalStatement.cpp" />
+    <ClCompile Include="Actions\AddConnector.cpp" />
+    <ClCompile Include="Actions\AddEnd.cpp" />
+    <ClCompile Include="Actions\AddOperatorAssign.cpp" />
+    <ClCompile Include="Actions\AddRead.cpp" />
+    <ClCompile Include="Actions\AddStart.cpp" />
+    <ClCompile Include="Actions\AddVariableAssign.cpp" />
+    <ClCompile Include="Actions\AddWrite.cpp" />
+    <ClCompile Include="Actions\Copy.cpp" />
+    <ClCompile Include="Actions\Delete.cpp" />
+    <ClCompile Include="Actions\Deleter.cpp" />
+    <ClCompile Include="Actions\Edit.cpp" />
+    <ClCompile Include="Actions\Load.cpp" />
+    <ClCompile Include="Actions\Paste.cpp" />
+    <ClCompile Include="Actions\Run.cpp" />
+    <ClCompile Include="Actions\Save.cpp" />
+    <ClCompile Include="Actions\Select.cpp" />
+    <ClCompile Include="Actions\SwitchModes.cpp" />
+    <ClCompile Include="Actions\Validate.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -266,12 +284,50 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="Actions\AddValueAssign.cpp" />
+    <ClCompile Include="ApplicationManager.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="Statements\ConditionalStatement.cpp" />
+    <ClCompile Include="Statements\Connector.cpp" />
+    <ClCompile Include="Statements\End.cpp" />
     <ClCompile Include="GUI\Input.cpp" />
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="HelperFn.cpp" />
-    <ClCompile Include="Phase1-TestCode.cpp" />
+    <ClCompile Include="Statements\OperatorAssign.cpp" />
+    <ClCompile Include="Statements\Read.cpp" />
+    <ClCompile Include="Statements\Start.cpp" />
+    <ClCompile Include="Statements\Statement.cpp" />
+    <ClCompile Include="Statements\ValueAssign.cpp" />
+    <ClCompile Include="main.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="Statements\VariableAssign.cpp" />
+    <ClCompile Include="Statements\Write.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actions\AddConditionalStatement.h" />
+    <ClInclude Include="Actions\AddConnector.h" />
+    <ClInclude Include="Actions\AddEnd.h" />
+    <ClInclude Include="Actions\AddOperatorAssign.h" />
+    <ClInclude Include="Actions\AddRead.h" />
+    <ClInclude Include="Actions\AddStart.h" />
+    <ClInclude Include="Actions\AddVariableAssign.h" />
+    <ClInclude Include="Actions\AddWrite.h" />
+    <ClInclude Include="Actions\Copy.h" />
+    <ClInclude Include="Actions\Delete.h" />
+    <ClInclude Include="Actions\Deleter.h" />
+    <ClInclude Include="Actions\Edit.h" />
+    <ClInclude Include="Actions\Load.h" />
+    <ClInclude Include="Actions\Paste.h" />
+    <ClInclude Include="Actions\Run.h" />
+    <ClInclude Include="Actions\Save.h" />
+    <ClInclude Include="Actions\Select.h" />
+    <ClInclude Include="Actions\SwitchModes.h" />
+    <ClInclude Include="Actions\Validate.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />
@@ -292,11 +348,28 @@
     <ClInclude Include="CMUgraphicsLib\jpeg\jpegint.h" />
     <ClInclude Include="CMUgraphicsLib\jpeg\jpeglib.h" />
     <ClInclude Include="CMUgraphicsLib\jpeg\jversion.h" />
+    <ClInclude Include="Actions\Action.h" />
+    <ClInclude Include="Actions\AddValueAssign.h" />
+    <ClInclude Include="ApplicationManager.h" />
+    <ClInclude Include="Statements\ConditionalStatement.h" />
+    <ClInclude Include="Statements\Connector.h" />
+    <ClInclude Include="DEFS.h" />
+    <ClInclude Include="Statements\End.h" />
     <ClInclude Include="GUI\Input.h" />
     <ClInclude Include="GUI\Output.h" />
     <ClInclude Include="GUI\UI_Info.h" />
-    <ClInclude Include="DEFS.h" />
     <ClInclude Include="HelperFn.h" />
+    <ClInclude Include="Statements\OperatorAssign.h" />
+    <ClInclude Include="Statements\Read.h" />
+    <ClInclude Include="Statements\Start.h" />
+    <ClInclude Include="Statements\ValueAssign.h" />
+    <ClInclude Include="Statements\Statement.h" />
+    <ClInclude Include="Statements\VariableAssign.h" />
+    <ClInclude Include="Statements\Write.h" />
+    <ClInclude Include="Utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

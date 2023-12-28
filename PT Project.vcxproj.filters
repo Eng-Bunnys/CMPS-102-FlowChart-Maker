@@ -2,13 +2,25 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="CMUgraphicsLib">
-      <UniqueIdentifier>{a8aa66fb-3f0e-4fb3-8004-4280a8142c45}</UniqueIdentifier>
+      <UniqueIdentifier>{6b4fd0c5-0008-40e5-98d4-ff450bd5263b}</UniqueIdentifier>
     </Filter>
     <Filter Include="CMUgraphicsLib\JPEG">
-      <UniqueIdentifier>{42ccd24f-e496-4c7d-acc8-2240fef71767}</UniqueIdentifier>
+      <UniqueIdentifier>{650df8b6-efa8-43be-a19f-c818ae4e4bca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Action Classes">
+      <UniqueIdentifier>{cfaf17f6-543d-447f-a095-0845317bb29d}</UniqueIdentifier>
     </Filter>
     <Filter Include="GUI Classes">
-      <UniqueIdentifier>{e41678cd-027e-4dfb-aecd-7f8a61d189cc}</UniqueIdentifier>
+      <UniqueIdentifier>{4a20f047-6a06-4665-8457-7ed8b3045c87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application Manager">
+      <UniqueIdentifier>{11405589-e457-4333-a928-33904528b286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Statements">
+      <UniqueIdentifier>{e92e8768-d661-4c48-904a-2aa2234b759e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Connector">
+      <UniqueIdentifier>{30d2a12b-8dad-444a-ba5d-2b5f4bd718a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -117,17 +129,61 @@
     <ClCompile Include="CMUgraphicsLib\jpeg\jutils.c">
       <Filter>CMUgraphicsLib\JPEG</Filter>
     </ClCompile>
+    <ClCompile Include="ApplicationManager.cpp">
+      <Filter>Application Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="CMUgraphicsLib\colors.cpp">
+      <Filter>CMUgraphicsLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Statements\Connector.cpp">
+      <Filter>Connector</Filter>
+    </ClCompile>
+    <ClCompile Include="Statements\ValueAssign.cpp">
+      <Filter>Statements</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\AddValueAssign.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="HelperFn.cpp" />
     <ClCompile Include="GUI\Input.cpp">
       <Filter>GUI Classes</Filter>
     </ClCompile>
     <ClCompile Include="GUI\Output.cpp">
       <Filter>GUI Classes</Filter>
     </ClCompile>
-    <ClCompile Include="CMUgraphicsLib\colors.cpp">
-      <Filter>CMUgraphicsLib</Filter>
+    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Statements\Start.cpp">
+      <Filter>Statements</Filter>
     </ClCompile>
-    <ClCompile Include="Phase1-TestCode.cpp" />
-    <ClCompile Include="HelperFn.cpp" />
+    <ClCompile Include="Actions\AddStart.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Statements\End.cpp" />
+    <ClCompile Include="Actions\AddEnd.cpp" />
+    <ClCompile Include="Statements\VariableAssign.cpp" />
+    <ClCompile Include="Actions\AddVariableAssign.cpp" />
+    <ClCompile Include="Statements\ConditionalStatement.cpp" />
+    <ClCompile Include="Actions\AddConditionalStatement.cpp" />
+    <ClCompile Include="Statements\Statement.cpp" />
+    <ClCompile Include="Actions\Select.cpp" />
+    <ClCompile Include="Actions\Copy.cpp" />
+    <ClCompile Include="Actions\Paste.cpp" />
+    <ClCompile Include="Actions\AddConnector.cpp" />
+    <ClCompile Include="Actions\Edit.cpp" />
+    <ClCompile Include="Statements\Write.cpp" />
+    <ClCompile Include="Actions\AddWrite.cpp" />
+    <ClCompile Include="Statements\Read.cpp" />
+    <ClCompile Include="Actions\AddRead.cpp" />
+    <ClCompile Include="Actions\Save.cpp" />
+    <ClCompile Include="Actions\Load.cpp" />
+    <ClCompile Include="Actions\SwitchModes.cpp" />
+    <ClCompile Include="Actions\Validate.cpp" />
+    <ClCompile Include="Actions\Run.cpp" />
+    <ClCompile Include="Statements\OperatorAssign.cpp" />
+    <ClCompile Include="Actions\AddOperatorAssign.cpp" />
+    <ClCompile Include="Actions\Deleter.cpp" />
+    <ClCompile Include="Actions\Delete.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -190,6 +246,26 @@
     <ClInclude Include="CMUgraphicsLib\jpeg\jversion.h">
       <Filter>CMUgraphicsLib\JPEG</Filter>
     </ClInclude>
+    <ClInclude Include="Actions\Action.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplicationManager.h">
+      <Filter>Application Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Statements\Statement.h">
+      <Filter>Statements</Filter>
+    </ClInclude>
+    <ClInclude Include="Statements\Connector.h">
+      <Filter>Connector</Filter>
+    </ClInclude>
+    <ClInclude Include="Statements\ValueAssign.h">
+      <Filter>Statements</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddValueAssign.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="DEFS.h" />
+    <ClInclude Include="HelperFn.h" />
     <ClInclude Include="GUI\Input.h">
       <Filter>GUI Classes</Filter>
     </ClInclude>
@@ -199,7 +275,39 @@
     <ClInclude Include="GUI\UI_Info.h">
       <Filter>GUI Classes</Filter>
     </ClInclude>
-    <ClInclude Include="DEFS.h" />
-    <ClInclude Include="HelperFn.h" />
+    <ClInclude Include="Utils.h" />
+    <ClInclude Include="Statements\Start.h">
+      <Filter>Statements</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\AddStart.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Statements\End.h" />
+    <ClInclude Include="Actions\AddEnd.h" />
+    <ClInclude Include="Statements\VariableAssign.h" />
+    <ClInclude Include="Actions\AddVariableAssign.h" />
+    <ClInclude Include="Statements\ConditionalStatement.h" />
+    <ClInclude Include="Actions\AddConditionalStatement.h" />
+    <ClInclude Include="Actions\Select.h" />
+    <ClInclude Include="Actions\Copy.h" />
+    <ClInclude Include="Actions\Paste.h" />
+    <ClInclude Include="Actions\AddConnector.h" />
+    <ClInclude Include="Actions\Edit.h" />
+    <ClInclude Include="Statements\Write.h" />
+    <ClInclude Include="Actions\AddWrite.h" />
+    <ClInclude Include="Statements\Read.h" />
+    <ClInclude Include="Actions\AddRead.h" />
+    <ClInclude Include="Actions\Save.h" />
+    <ClInclude Include="Actions\Load.h" />
+    <ClInclude Include="Actions\SwitchModes.h" />
+    <ClInclude Include="Actions\Validate.h" />
+    <ClInclude Include="Actions\Run.h" />
+    <ClInclude Include="Statements\OperatorAssign.h" />
+    <ClInclude Include="Actions\AddOperatorAssign.h" />
+    <ClInclude Include="Actions\Delete.h" />
+    <ClInclude Include="Actions\Deleter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

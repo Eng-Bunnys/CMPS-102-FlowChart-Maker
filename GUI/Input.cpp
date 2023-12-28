@@ -199,14 +199,6 @@ ActionType Input::GetUserAction() const
             int ClickedItem = (x / UI.MenuItemWidth);
             switch (ClickedItem)
             {
-            case ITM_SELECT_SIM:
-                return SELECT;
-            case ITM_EDIT_SIM:
-                return EDIT_STAT;
-            case ITM_SAVE_SIM:
-                return SAVE;
-            case ITM_LOAD_SIM:
-                return LOAD;
             case ITM_VALIDATE:
                 return SIM_VALIDATE;
             case ITM_RUN:

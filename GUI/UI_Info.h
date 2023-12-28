@@ -28,7 +28,16 @@ struct UI_Info	//User Interface Info.
 
 	int ASSGN_WDTH;		//Assignment statement default width
 	int ASSGN_HI;		//Assignment statement default height
-	
+
+	int START_WDTH;		//Start statement default width
+	int START_HI;		//Start statement default height
+
+	int COND_WDTH;
+	int COND_HI;
+
+	int IO_WDTH;
+	int IO_HI;
+
 }UI;	//create a single global object UI
 
 struct Point	
